@@ -1,8 +1,7 @@
-#include <wchar.h>
 #include <locale.h>
 #include "datatypes.h"
-#include "utility.h"
 #include "iodata.h"
+#include "utility.h"
 
 int main() {
     setlocale(LC_CTYPE, "");
@@ -10,9 +9,7 @@ int main() {
     struct Text *text = scanText();
     if (text == NULL)
         return 0;
-
-    for (int i = 0; i < text->length; i++)
-        wprintf(L"%ls", text->sentences[i]->value);
+    printText(text);
     freeText(text);
 
     return 0;

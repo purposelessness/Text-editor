@@ -10,23 +10,23 @@
 stddef.h
 -
 
-/mnt/d/Files/Programming/Coursework/iodata.c
-iodata.h
 /mnt/d/Files/Programming/Coursework/iodata.h
 datatypes.h
 /mnt/d/Files/Programming/Coursework/datatypes.h
+
+/mnt/d/Files/Programming/Coursework/main.c
+locale.h
+-
+datatypes.h
+/mnt/d/Files/Programming/Coursework/datatypes.h
+iodata.h
+/mnt/d/Files/Programming/Coursework/iodata.h
 utility.h
 /mnt/d/Files/Programming/Coursework/utility.h
-malloc.h
--
-ctype.h
--
-wchar.h
--
-
-/mnt/d/Files/Programming/Coursework/iodata.h
 
 /mnt/d/Files/Programming/Coursework/utility.h
 stddef.h
 -
+datatypes.h
+/mnt/d/Files/Programming/Coursework/datatypes.h
 

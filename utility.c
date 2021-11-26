@@ -1,5 +1,4 @@
 #include "utility.h"
-#include "datatypes.h"
 #include <malloc.h>
 #include <wchar.h>
 
@@ -19,16 +18,14 @@ int ungetch(wchar_t c) {
     return 1;
 }
 
-void freeText(void *ptr) {
-    struct Text *text = (struct Text *) ptr;
+void freeText(struct Text *text) {
     for (int i = 0; i < text->length; i++)
         freeSentence(text->sentences[i]);
     free(text->sentences);
     free(text);
 }
 
-void freeSentence(void *ptr) {
-    struct Sentence *sentence = (struct Sentence *) ptr;
+void freeSentence(struct Sentence *sentence) {
     free(sentence->value);
     free(sentence);
 }

@@ -1,5 +1,4 @@
 #include "iodata.h"
-#include "datatypes.h"
 #include "utility.h"
 #include <malloc.h>
 #include <ctype.h>
@@ -89,4 +88,13 @@ struct Sentence *scanSentence() {
         free(str);
         return NULL;
     }
+}
+
+void printText(struct Text *text) {
+    for (int i = 0; i < text->length; i++)
+        printSentence(text->sentences[i]);
+}
+
+void printSentence(struct Sentence *sentence) {
+    wprintf(sentence->value);
 }
