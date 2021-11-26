@@ -1,0 +1,40 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/mnt/d/Files/Programming/Coursework/datatypes.h
+stddef.h
+-
+
+/mnt/d/Files/Programming/Coursework/iodata.c
+iodata.h
+/mnt/d/Files/Programming/Coursework/iodata.h
+datatypes.h
+/mnt/d/Files/Programming/Coursework/datatypes.h
+utility.h
+/mnt/d/Files/Programming/Coursework/utility.h
+malloc.h
+-
+ctype.h
+-
+string.h
+-
+
+/mnt/d/Files/Programming/Coursework/iodata.h
+
+/mnt/d/Files/Programming/Coursework/main.c
+malloc.h
+-
+datatypes.h
+/mnt/d/Files/Programming/Coursework/datatypes.h
+iodata.h
+/mnt/d/Files/Programming/Coursework/iodata.h
+stdio.h
+-
+
+/mnt/d/Files/Programming/Coursework/utility.h
+
