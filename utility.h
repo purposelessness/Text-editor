@@ -1,8 +1,10 @@
 #ifndef COURSEWORK_UTILITY_H
 #define COURSEWORK_UTILITY_H
 
-int getch();
-int ungetch(int c);
+#include <stddef.h>
+
+wchar_t getch();
+int ungetch(wchar_t c);
 void freeText(void *ptr);
 void freeSentence(void *ptr);
 

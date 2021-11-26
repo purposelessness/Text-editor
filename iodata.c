@@ -3,7 +3,7 @@
 #include "utility.h"
 #include <malloc.h>
 #include <ctype.h>
-#include <string.h>
+#include <wchar.h>
 
 struct Text *scanText() {
     size_t len = 0, buf_size = 3, size_step = 6;
@@ -12,7 +12,7 @@ struct Text *scanText() {
     while ((sentence = scanSentence())) {
         if (len == buf_size - 1) {
             if ((buf = realloc(sentences, (buf_size += size_step) * sizeof(struct Sentence *))) == NULL) {
-                puts("Memory reallocation error");
+                wprintf(L"Memory reallocation error\n");
                 goto exit;
             }
             sentences = buf;
@@ -37,35 +37,35 @@ struct Text *scanText() {
 }
 
 struct Sentence *scanSentence() {
-    char c, *str, *buf;
-    char *endSymbols = ".", *separators = " ,.";
+    wchar_t c, *str, *buf;
+    wchar_t *endSymbols = L".", *separators = L" ,.";
     size_t len = 0, buf_size = 10, size_step = 20;
-    str = malloc(buf_size * sizeof(char));
+    str = malloc(buf_size * sizeof(wchar_t));
     char state = 0, endlCount = 0;
-    while ((c = (char) getch())) {
+    while ((c = (wchar_t) getch())) {
         if (state == 0) {
             if (c == '\n') {
                 endlCount++;
                 if (endlCount >= 2)
                     goto exit;
             }
-            if (isspace(c) || (ispunct(c) && strchr(separators, c)))
+            if (isspace(c) || (ispunct(c) && wcschr(separators, c)))
                 continue;
             state = 1;
         }
 
         if (len == buf_size - 1) {
-            if ((buf = realloc(str, (buf_size += size_step) * sizeof(char))) == NULL) {
-                puts("Memory reallocation error");
+            if ((buf = realloc(str, (buf_size += size_step) * sizeof(wchar_t))) == NULL) {
+                wprintf(L"Memory reallocation error");
                 goto exit;
             }
             str = buf;
         }
         str[len++] = c;
 
-        if (strchr(endSymbols, c)) {
-            c = (char) getch();
-            str[len++] = c == '\n' ? '\n' : ' ';
+        if (wcschr(endSymbols, c)) {
+            c = (wchar_t) getch();
+            str[len++] = c == L'\n' ? L'\n' : L' ';
             ungetch(c);
             break;
         }
@@ -73,8 +73,8 @@ struct Sentence *scanSentence() {
     if (state == 0)
         goto exit;
 
-    if ((buf = realloc(str, (len + 1) * sizeof(char))) == NULL) {
-        puts("Memory reallocation error");
+    if ((buf = realloc(str, (len + 1) * sizeof(wchar_t))) == NULL) {
+        wprintf(L"Memory reallocation error");
         goto exit;
     }
     str = buf;

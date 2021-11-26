@@ -1,21 +1,21 @@
 #include "utility.h"
 #include "datatypes.h"
-#include <stdio.h>
 #include <malloc.h>
+#include <wchar.h>
 
 #define BUFSIZE 10
 
-char buf[BUFSIZE];
+wchar_t buf[BUFSIZE];
 int bufp = 0;
 
-int getch() {
-    return bufp > 0 ? buf[--bufp] : (char) getchar();
+wchar_t getch() {
+    return bufp > 0 ? buf[--bufp] : (wchar_t) getwchar();
 }
 
-int ungetch(int c) {
+int ungetch(wchar_t c) {
     if (bufp >= BUFSIZE)
         return 0;
-    buf[bufp++] = (char) c;
+    buf[bufp++] = (wchar_t) c;
     return 1;
 }
 

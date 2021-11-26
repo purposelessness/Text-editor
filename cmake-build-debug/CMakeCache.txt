@@ -39,7 +39,7 @@ CMAKE_CODEBLOCKS_MAKE_ARGUMENTS:STRING=-j12
 CMAKE_COLOR_MAKEFILE:BOOL=ON
 
 //C compiler
-CMAKE_C_COMPILER:STRING=/usr/bin/cc
+CMAKE_C_COMPILER:FILEPATH=/usr/bin/cc
 
 //A wrapper around 'ar' adding the appropriate '--plugin' option
 // for the GCC compiler
@@ -199,9 +199,6 @@ CMAKE_VERBOSE_MAKEFILE:BOOL=FALSE
 
 //Value Computed by CMake
 Coursework_BINARY_DIR:STATIC=/mnt/d/Files/Programming/Coursework/cmake-build-debug
-
-//Value Computed by CMake
-Coursework_IS_TOP_LEVEL:STATIC=ON
 
 //Value Computed by CMake
 Coursework_SOURCE_DIR:STATIC=/mnt/d/Files/Programming/Coursework
