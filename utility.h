@@ -3,5 +3,7 @@
 
 int getch();
 int ungetch(int c);
+void freeText(void *ptr);
+void freeSentence(void *ptr);
 
 #endif //COURSEWORK_UTILITY_H

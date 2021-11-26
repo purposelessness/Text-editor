@@ -5,57 +5,41 @@
 #include <ctype.h>
 #include <string.h>
 
-//struct Text *scanText() {
-//    size_t len = 0, buf_size = 3, size_step = 6;
-//    struct Text *text = malloc(sizeof(struct Sentence));
-//    struct Sentence **sentences, *sentence, **buf;
-//    sentences = malloc(buf_size * sizeof(struct Sentence *));
-//    while ((sentence = scanSentence())) {
-//        if (len == buf_size - 1) {
-//            buf = sentences;
-//            if ((sentences = realloc(sentences, (buf_size += size_step) * sizeof(struct Sentence *))) == NULL) {
-//                free(buf);
-//                puts("Memory reallocation error");
-//                goto exit;
-//            }
-//        }
-//        str[len++] = c;
-//
-//        if (strchr(endSymbols, c)) {
-//            c = (char) getch();
-//            if (c == '\n')
-//                str[len++] = c;
-//            ungetch(c);
-//            break;
-//        }
-//    }
-//    if (state == 0)
-//        goto exit;
-//
-//    buf = str;
-//    if ((str = realloc(str, (len + 1) * sizeof(char))) == NULL) {
-//        free(buf);
-//        puts("Memory reallocation error");
-//        goto exit;
-//    }
-//    str[len] = '\0';
-//
-//    sentence->value = str;
-//    return sentence;
-//
-//    exit:
-//    {
-//        free(str);
-//        free(sentence);
-//        return NULL;
-//    }
-//}
+struct Text *scanText() {
+    size_t len = 0, buf_size = 3, size_step = 6;
+    struct Sentence **sentences, **buf, *sentence;
+    sentences = malloc(buf_size * sizeof(struct Sentence *));
+    while ((sentence = scanSentence())) {
+        if (len == buf_size - 1) {
+            if ((buf = realloc(sentences, (buf_size += size_step) * sizeof(struct Sentence *))) == NULL) {
+                puts("Memory reallocation error");
+                goto exit;
+            }
+            sentences = buf;
+        }
+        sentences[len++] = sentence;
+    }
+    if (len == 0)
+        goto exit;
+
+    struct Text *text = malloc(sizeof(struct Text));
+    text->sentences = sentences;
+    text->length = len;
+    return text;
+
+    exit:
+    {
+        for (int i = 0; i < len; i++)
+            freeSentence(sentences[i]);
+        free(sentences);
+        return NULL;
+    }
+}
 
 struct Sentence *scanSentence() {
     char c, *str, *buf;
     char *endSymbols = ".", *separators = " ,.";
     size_t len = 0, buf_size = 10, size_step = 20;
-    struct Sentence *sentence = malloc(sizeof(struct Sentence));
     str = malloc(buf_size * sizeof(char));
     char state = 0, endlCount = 0;
     while ((c = (char) getch())) {
@@ -81,8 +65,7 @@ struct Sentence *scanSentence() {
 
         if (strchr(endSymbols, c)) {
             c = (char) getch();
-            if (c == '\n')
-                str[len++] = c;
+            str[len++] = c == '\n' ? '\n' : ' ';
             ungetch(c);
             break;
         }
@@ -97,13 +80,13 @@ struct Sentence *scanSentence() {
     str = buf;
     str[len] = '\0';
 
+    struct Sentence *sentence = malloc(sizeof(struct Sentence));
     sentence->value = str;
     return sentence;
 
     exit:
     {
         free(str);
-        free(sentence);
         return NULL;
     }
 }

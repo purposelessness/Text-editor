@@ -1,30 +1,22 @@
+#include <stdio.h>
 #include <malloc.h>
 #include "datatypes.h"
+#include "utility.h"
 #include "iodata.h"
-#include <stdio.h>
 
 int main() {
-//    struct Text *text = scanText();
-//    for (size_t i = 0; i < text->length; i++){
-//        puts(text->sentences[i].value);
-//        printf("input %d %d;\n", (int) i, (int) text->length);
-//    }
-//    for (size_t i = 0; i < text->length; i++) {
-//        free(text->sentences[i].value);
-//    }
-//    free(text->sentences);
-//    free(text);
+    struct Text *text = scanText();
+    if (text == NULL)
+        return 0;
+    for (int i = 0; i < text->length; i++)
+        printf("%s", text->sentences[i]->value);
+    freeText(text);
 //    struct Sentence *sentence;
 //    while ((sentence = scanSentence())) {
+//        puts(sentence->value);
 //        free(sentence->value);
+//        free(sentence);
 //    }
-//    free(sentence);
-    struct Sentence *sentence;
-    while ((sentence = scanSentence())) {
-        puts(sentence->value);
-        free(sentence->value);
-        free(sentence);
-    }
 
     return 0;
 }
