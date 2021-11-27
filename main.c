@@ -10,12 +10,12 @@ int main() {
     struct Text text = txtscan();
     if (text.length == 0)
         return 0;
-    txtprint(text);
 
     filtertxt(&text);
+
     txtprint(text);
 
-    txtfree(&text);
+    txtfree(text);
 
     return 0;
 }

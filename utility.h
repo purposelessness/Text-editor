@@ -8,7 +8,7 @@ wchar_t getch();
 
 int ungetch(wchar_t c);
 
-void txtfree(struct Text *restrict text);
+void txtfree(struct Text text);
 
 void sntfree(struct Sentence *restrict sentence);
 

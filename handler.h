@@ -3,6 +3,6 @@
 
 #include "datatypes.h"
 
-int filtertxt(struct Text *restrict text);
+void filtertxt(struct Text *restrict text);
 
 #endif //COURSEWORK_HANDLER_H

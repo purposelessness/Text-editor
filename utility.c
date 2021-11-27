@@ -2,9 +2,9 @@
 #include <malloc.h>
 #include <wchar.h>
 
-#define BUFSIZE 10
+#define BUF_SIZE 10
 
-wchar_t bufc[BUFSIZE];
+wchar_t bufc[BUF_SIZE];
 int bufp = 0;
 
 wchar_t getch() {
@@ -12,16 +12,16 @@ wchar_t getch() {
 }
 
 int ungetch(wchar_t c) {
-    if (bufp >= BUFSIZE)
+    if (bufp >= BUF_SIZE)
         return 0;
     bufc[bufp++] = (wchar_t) c;
     return 1;
 }
 
-void txtfree(struct Text *restrict text) {
-    for (int i = 0; i < text->length; i++)
-        sntfree(text->sentences[i]);
-    free(text->sentences);
+void txtfree(struct Text text) {
+    for (int i = 0; i < text.length; i++)
+        sntfree(text.sentences[i]);
+    free(text.sentences);
 }
 
 void sntfree(struct Sentence *restrict sentence) {
@@ -33,7 +33,7 @@ int snticmp(const struct Sentence *restrict snt1, const struct Sentence *restric
 #ifdef __linux__
     return wcsncasecmp(snt1->value, snt2->value, max((int) snt1->length, (int) snt2->length));
 #elif _WIN32
-    return _wcsnicmp(snt1->value, snt2->value, wcslen(snt1->value)-2);
+    return _wcsnicmp(snt1->value, snt2->value, max((int) snt1->length, (int) snt2->length));
 #endif
 }
 
