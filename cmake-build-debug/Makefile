@@ -129,6 +129,30 @@ Coursework/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Coursework.dir/build.make CMakeFiles/Coursework.dir/build
 .PHONY : Coursework/fast
 
+handler.o: handler.c.o
+.PHONY : handler.o
+
+# target to build an object file
+handler.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Coursework.dir/build.make CMakeFiles/Coursework.dir/handler.c.o
+.PHONY : handler.c.o
+
+handler.i: handler.c.i
+.PHONY : handler.i
+
+# target to preprocess a source file
+handler.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Coursework.dir/build.make CMakeFiles/Coursework.dir/handler.c.i
+.PHONY : handler.c.i
+
+handler.s: handler.c.s
+.PHONY : handler.s
+
+# target to generate assembly for a file
+handler.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Coursework.dir/build.make CMakeFiles/Coursework.dir/handler.c.s
+.PHONY : handler.c.s
+
 iodata.o: iodata.c.o
 .PHONY : iodata.o
 
@@ -210,6 +234,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... Coursework"
+	@echo "... handler.o"
+	@echo "... handler.i"
+	@echo "... handler.s"
 	@echo "... iodata.o"
 	@echo "... iodata.i"
 	@echo "... iodata.s"

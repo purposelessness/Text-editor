@@ -3,9 +3,12 @@
 
 #include "datatypes.h"
 
-struct Text *scanText();
-struct Sentence *scanSentence();
-void printText(struct Text *text);
-void printSentence(struct Sentence *sentence);
+struct Text txtscan();
+
+struct Sentence *sntscan();
+
+void txtprint(struct Text text);
+
+void sntprint(struct Sentence *restrict sentence);
 
 #endif //COURSEWORK_IODATA_H

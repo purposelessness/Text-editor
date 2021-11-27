@@ -5,8 +5,15 @@
 #include "datatypes.h"
 
 wchar_t getch();
+
 int ungetch(wchar_t c);
-void freeText(struct Text *text);
-void freeSentence(struct Sentence *sentence);
+
+void txtfree(struct Text *restrict text);
+
+void sntfree(struct Sentence *restrict sentence);
+
+int snticmp(const struct Sentence *restrict snt1, const struct Sentence *restrict snt2);
+
+int max(int a, int b);
 
 #endif //COURSEWORK_UTILITY_H

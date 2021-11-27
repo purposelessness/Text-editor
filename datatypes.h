@@ -10,8 +10,7 @@ struct Text {
 
 struct Sentence {
     wchar_t *value;
-//    wchar_t **words;
-//    size_t length;
+    size_t length;
 };
 
 #endif //COURSEWORK_DATATYPES_H

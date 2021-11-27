@@ -2,15 +2,20 @@
 #include "datatypes.h"
 #include "iodata.h"
 #include "utility.h"
+#include "handler.h"
 
 int main() {
     setlocale(LC_CTYPE, "");
 
-    struct Text *text = scanText();
-    if (text == NULL)
+    struct Text text = txtscan();
+    if (text.length == 0)
         return 0;
-    printText(text);
-    freeText(text);
+    txtprint(text);
+
+    filtertxt(&text);
+    txtprint(text);
+
+    txtfree(&text);
 
     return 0;
 }

@@ -4,28 +4,39 @@
 
 #define BUFSIZE 10
 
-wchar_t buf[BUFSIZE];
+wchar_t bufc[BUFSIZE];
 int bufp = 0;
 
 wchar_t getch() {
-    return bufp > 0 ? buf[--bufp] : (wchar_t) getwchar();
+    return bufp > 0 ? bufc[--bufp] : (wchar_t) getwchar();
 }
 
 int ungetch(wchar_t c) {
     if (bufp >= BUFSIZE)
         return 0;
-    buf[bufp++] = (wchar_t) c;
+    bufc[bufp++] = (wchar_t) c;
     return 1;
 }
 
-void freeText(struct Text *text) {
+void txtfree(struct Text *restrict text) {
     for (int i = 0; i < text->length; i++)
-        freeSentence(text->sentences[i]);
+        sntfree(text->sentences[i]);
     free(text->sentences);
-    free(text);
 }
 
-void freeSentence(struct Sentence *sentence) {
+void sntfree(struct Sentence *restrict sentence) {
     free(sentence->value);
     free(sentence);
+}
+
+int snticmp(const struct Sentence *restrict snt1, const struct Sentence *restrict snt2) {
+#ifdef __linux__
+    return wcsncasecmp(snt1->value, snt2->value, max((int) snt1->length, (int) snt2->length));
+#elif _WIN32
+    return _wcsnicmp(snt1->value, snt2->value, wcslen(snt1->value)-2);
+#endif
+}
+
+int max(int a, int b) {
+    return a > b ? a : b;
 }
