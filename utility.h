@@ -16,4 +16,6 @@ int snticmp(const struct Sentence *restrict snt1, const struct Sentence *restric
 
 int max(int a, int b);
 
+struct Words sntwrds(struct Sentence sentence);
+
 #endif //COURSEWORK_UTILITY_H

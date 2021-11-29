@@ -13,4 +13,9 @@ struct Sentence {
     size_t length;
 };
 
+struct Words {
+    wchar_t **value;
+    size_t length;
+};
+
 #endif //COURSEWORK_DATATYPES_H

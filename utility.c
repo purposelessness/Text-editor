@@ -40,3 +40,52 @@ int snticmp(const struct Sentence *restrict snt1, const struct Sentence *restric
 int max(int a, int b) {
     return a > b ? a : b;
 }
+
+struct Words sntwrds(struct Sentence sentence) {
+    struct Words words;
+    size_t len = 0, buf_size = 5, buf_step = 10;
+    wchar_t *snt = sentence.value;
+    wchar_t **wrds, **buf, *word, *pt;
+    wchar_t *sep = L" ,.\n";
+
+    wrds = malloc(buf_size * sizeof(wchar_t *));
+    if (wrds == NULL) {
+        wprintf(L"Memory allocation error");
+        goto err;
+    }
+
+    word = wcstok(snt, sep, &pt);
+    while (word != NULL) {
+        if (len == buf_size) {
+            if (!(buf = realloc(wrds, (buf_size += buf_step) * sizeof(wchar_t *)))) {
+                wprintf(L"Memory reallocation error");
+                goto err_free_wrds;
+            }
+            wrds = buf;
+        }
+        wrds[len++] = word;
+
+        word = wcstok(NULL, sep, &pt);
+    }
+
+    if (buf_size != len) {
+        if (!(buf = realloc(wrds, len * sizeof(wchar_t *)))) {
+            wprintf(L"Memory reallocation error");
+            goto err_free_wrds;
+        }
+        wrds = buf;
+    }
+
+    words.value = wrds;
+    words.length = len;
+
+    return words;
+
+    err_free_wrds:
+    for (int i = 0; i < len; i++)
+        free(wrds[i]);
+    free(wrds);
+    err:
+    words.length = 0;
+    return words;
+}

@@ -11,7 +11,9 @@ int main() {
     if (text.length == 0)
         return 0;
 
-    filtertxt(&text);
+    txtprint(text);
+
+    filter_text(&text);
 
     txtprint(text);
 

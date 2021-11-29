@@ -3,6 +3,10 @@
 
 #include "datatypes.h"
 
-void filtertxt(struct Text *restrict text);
+void filter_text(struct Text *restrict text);
+
+void color_text(struct Text text);
+
+void print_capitalized_words(struct Text text);
 
 #endif //COURSEWORK_HANDLER_H

@@ -12,11 +12,7 @@ CMakeFiles/Coursework.dir/iodata.c.o: \
  ../iodata.h \
  ../utility.h
 CMakeFiles/Coursework.dir/main.c.o: \
- ../datatypes.h \
- ../handler.h \
- ../iodata.h \
- ../main.c \
- ../utility.h
+ ../main.c
 CMakeFiles/Coursework.dir/utility.c.o: \
  ../datatypes.h \
  ../utility.c \
