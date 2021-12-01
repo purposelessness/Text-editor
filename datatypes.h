@@ -3,19 +3,27 @@
 
 #include <stddef.h>
 
+typedef enum { false, true } bool;
+
 struct Text {
+    struct Paragraph **paragraphs;
+    int length;
+};
+
+struct Paragraph {
     struct Sentence **sentences;
-    size_t length;
+    int length;
 };
 
 struct Sentence {
     wchar_t *value;
-    size_t length;
+    int length;
+    bool nline;
 };
 
 struct Words {
     wchar_t **value;
-    size_t length;
+    int length;
 };
 
 #endif //COURSEWORK_DATATYPES_H

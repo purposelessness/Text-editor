@@ -6,11 +6,33 @@
 
 #IncludeRegexTransform: 
 
+/mnt/d/Files/Programming/Coursework/datatypes.h
+stddef.h
+-
+
+/mnt/d/Files/Programming/Coursework/handler.h
+datatypes.h
+/mnt/d/Files/Programming/Coursework/datatypes.h
+
+/mnt/d/Files/Programming/Coursework/iodata.h
+datatypes.h
+/mnt/d/Files/Programming/Coursework/datatypes.h
+
 /mnt/d/Files/Programming/Coursework/main.c
-stdio.h
+locale.h
 -
-string.h
+datatypes.h
+/mnt/d/Files/Programming/Coursework/datatypes.h
+iodata.h
+/mnt/d/Files/Programming/Coursework/iodata.h
+utility.h
+/mnt/d/Files/Programming/Coursework/utility.h
+handler.h
+/mnt/d/Files/Programming/Coursework/handler.h
+
+/mnt/d/Files/Programming/Coursework/utility.h
+stddef.h
 -
-stdlib.h
--
+datatypes.h
+/mnt/d/Files/Programming/Coursework/datatypes.h
 

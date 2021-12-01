@@ -8,11 +8,13 @@ wchar_t getch();
 
 int ungetch(wchar_t c);
 
-void txtfree(struct Text text);
+void freetxt(struct Text text);
 
-void sntfree(struct Sentence *restrict sentence);
+void freepar(struct Paragraph *paragraph);
 
-int snticmp(const struct Sentence *restrict snt1, const struct Sentence *restrict snt2);
+void freesnt(struct Sentence *sentence);
+
+int snticmp(const struct Sentence *snt1, const struct Sentence *snt2);
 
 int max(int a, int b);
 

@@ -3,7 +3,7 @@
 
 #include "datatypes.h"
 
-void filter_text(struct Text *restrict text);
+void filter_text(struct Text *text);
 
 void color_text(struct Text text);
 

@@ -18,18 +18,25 @@ int ungetch(wchar_t c) {
     return 1;
 }
 
-void txtfree(struct Text text) {
+void freetxt(struct Text text) {
     for (int i = 0; i < text.length; i++)
-        sntfree(text.sentences[i]);
-    free(text.sentences);
+        freepar(text.paragraphs[i]);
+    free(text.paragraphs);
 }
 
-void sntfree(struct Sentence *restrict sentence) {
+void freepar(struct Paragraph *paragraph) {
+    for (int i = 0; i < paragraph->length; i++)
+        freesnt(paragraph->sentences[i]);
+    free(paragraph->sentences);
+    free(paragraph);
+}
+
+void freesnt(struct Sentence *sentence) {
     free(sentence->value);
     free(sentence);
 }
 
-int snticmp(const struct Sentence *restrict snt1, const struct Sentence *restrict snt2) {
+int snticmp(const struct Sentence *snt1, const struct Sentence *snt2) {
 #ifdef __linux__
     return wcsncasecmp(snt1->value, snt2->value, max((int) snt1->length, (int) snt2->length));
 #elif _WIN32
@@ -43,7 +50,7 @@ int max(int a, int b) {
 
 struct Words sntwrds(struct Sentence sentence) {
     struct Words words;
-    size_t len = 0, buf_size = 5, buf_step = 10;
+    int len = 0, buf_size = 5, buf_step = 10;
     wchar_t *snt = sentence.value;
     wchar_t **wrds, **buf, *word, *pt;
     wchar_t *sep = L" ,.\n";
@@ -82,10 +89,10 @@ struct Words sntwrds(struct Sentence sentence) {
     return words;
 
     err_free_wrds:
-    for (int i = 0; i < len; i++)
-        free(wrds[i]);
-    free(wrds);
+        for (int i = 0; i < len; i++)
+            free(wrds[i]);
+        free(wrds);
     err:
-    words.length = 0;
-    return words;
+        words.length = 0;
+        return words;
 }

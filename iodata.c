@@ -4,9 +4,54 @@
 #include <ctype.h>
 #include <wchar.h>
 
-struct Text txtscan() {
+struct Text scantxt() {
     struct Text text;
-    size_t len = 0, buf_size = 3, size_step = 6;
+    int len = 0, buf_size = 2, size_step = 4;
+    struct Paragraph **pars, **buf, *par;
+
+    pars = malloc(buf_size * sizeof(struct Paragraph *));
+    if (pars == NULL) {
+        wprintf(L"Memory allocation error");
+        goto err;
+    }
+
+    while ((par = scanpar())) {
+        if (len == buf_size) {
+            if (!(buf = realloc(pars, (buf_size += size_step) * sizeof(struct Paragraph *)))) {
+                wprintf(L"Memory reallocation error\n");
+                goto err_free_pars;
+            }
+            pars = buf;
+        }
+        pars[len++] = par;
+    }
+    if (len == 0)
+        goto err_free_pars;
+
+    if (len != buf_size) {
+        if (!(buf = realloc(pars, len * sizeof(struct Paragraph *)))) {
+            wprintf(L"Memory reallocation error\n");
+            goto err_free_pars;
+        }
+        pars = buf;
+    }
+
+    text.paragraphs = pars;
+    text.length = len;
+
+    return text;
+
+    err_free_pars:
+        for (int i = 0; i < len; i++)
+            freepar(pars[i]);
+        free(pars);
+    err:
+        text.length = 0;
+        return text;
+}
+
+struct Paragraph *scanpar() {
+    int len = 0, buf_size = 4, size_step = 8;
     struct Sentence **snts, **buf, *snt;
 
     snts = malloc(buf_size * sizeof(struct Sentence *));
@@ -15,7 +60,7 @@ struct Text txtscan() {
         goto err;
     }
 
-    while ((snt = sntscan())) {
+    while ((snt = scansnt())) {
         if (len == buf_size) {
             if (!(buf = realloc(snts, (buf_size += size_step) * sizeof(struct Sentence *)))) {
                 wprintf(L"Memory reallocation error\n");
@@ -24,6 +69,9 @@ struct Text txtscan() {
             snts = buf;
         }
         snts[len++] = snt;
+
+        if (snt->nline == true)
+            break;
     }
     if (len == 0)
         goto err_free_snts;
@@ -36,25 +84,34 @@ struct Text txtscan() {
         snts = buf;
     }
 
-    text.sentences = snts;
-    text.length = len;
+    struct Paragraph *paragraph = malloc(sizeof(struct Paragraph));
 
-    return text;
+    if (paragraph == NULL) {
+        wprintf(L"Memory allocation error");
+        goto err_free_par;
+    }
 
+    paragraph->sentences = snts;
+    paragraph->length = len;
+
+    return paragraph;
+
+    err_free_par:
+        free(paragraph);
     err_free_snts:
         for (int i = 0; i < len; i++)
-            sntfree(snts[i]);
+            freesnt(snts[i]);
         free(snts);
     err:
-        text.length = 0;
-        return text;
+        return NULL;
 }
 
-struct Sentence *sntscan() {
+struct Sentence *scansnt() {
     wchar_t c, *str, *buf;
     wchar_t *endchars = L".", *seps = L" ,.";
-    size_t len = 0, buf_size = 10, size_step = 20;
-    char state = 0, endlcnt = 0;
+    int len = 0, buf_size = 10, size_step = 20;
+    int endlcnt = 0;
+    bool state = false, nline = false;
 
     str = malloc(buf_size * sizeof(wchar_t));
     if (str == NULL) {
@@ -63,7 +120,7 @@ struct Sentence *sntscan() {
     }
 
     while ((c = (wchar_t) getch())) {
-        if (state == 0) {
+        if (state == false) {
             if (c == '\n') {
                 endlcnt++;
                 if (endlcnt >= 2)
@@ -71,7 +128,7 @@ struct Sentence *sntscan() {
             }
             if (isspace(c) || (ispunct(c) && wcschr(seps, c)))
                 continue;
-            state = 1;
+            state = true;
         }
 
         if (len == buf_size - 1) {
@@ -85,12 +142,12 @@ struct Sentence *sntscan() {
 
         if (wcschr(endchars, c)) {
             c = (wchar_t) getch();
-            str[len++] = c == L'\n' ? L'\n' : L' ';
+            nline = c == L'\n' ? true : false;
             ungetch(c);
             break;
         }
     }
-    if (state == 0)
+    if (state == false)
         goto err_free_str;
 
     if (buf_size != len + 1) {
@@ -110,7 +167,8 @@ struct Sentence *sntscan() {
     }
 
     snt->value = str;
-    snt->length = len - 2;
+    snt->length = len - 1;
+    snt->nline = nline;
     return snt;
 
     err_free_snt:
@@ -120,12 +178,19 @@ struct Sentence *sntscan() {
         return NULL;
 }
 
-void txtprint(struct Text text) {
+void printtxt(struct Text text) {
     for (int i = 0; i < text.length; i++)
-        sntprint(text.sentences[i]);
+        printpar(text.paragraphs[i]);
     wprintf(L"\n");
 }
 
-void sntprint(struct Sentence *restrict sentence) {
-    wprintf(sentence->value);
+void printpar(struct Paragraph *paragraph) {
+    for (int i = 0; i < paragraph->length; i++)
+        printsnt(paragraph->sentences[i]);
+    wprintf(L"\n");
 }
+
+void printsnt(struct Sentence *sentence) {
+    wprintf(L"%ls ", sentence->value);
+}
+

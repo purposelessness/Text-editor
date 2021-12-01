@@ -7,17 +7,17 @@
 int main() {
     setlocale(LC_CTYPE, "");
 
-    struct Text text = txtscan();
+    struct Text text = scantxt();
     if (text.length == 0)
         return 0;
 
-    txtprint(text);
+    printtxt(text);
 
     filter_text(&text);
 
-    txtprint(text);
+    printtxt(text);
 
-    txtfree(text);
+    freetxt(text);
 
     return 0;
 }
