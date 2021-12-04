@@ -1,8 +1,8 @@
 #include <locale.h>
 #include "datatypes.h"
 #include "iodata.h"
-#include "utility.h"
 #include "handler.h"
+#include "memutilility.h"
 
 int main() {
     setlocale(LC_CTYPE, "");
@@ -15,7 +15,11 @@ int main() {
 
     filter_text(&text);
 
-    printtxt(text);
+    color_text(text);
+
+//    printtxt(text);
+
+//    sort(text);
 
     freetxt(text);
 

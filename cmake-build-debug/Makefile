@@ -129,6 +129,54 @@ Coursework/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Coursework.dir/build.make CMakeFiles/Coursework.dir/build
 .PHONY : Coursework/fast
 
+colorutility.o: colorutility.c.o
+.PHONY : colorutility.o
+
+# target to build an object file
+colorutility.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Coursework.dir/build.make CMakeFiles/Coursework.dir/colorutility.c.o
+.PHONY : colorutility.c.o
+
+colorutility.i: colorutility.c.i
+.PHONY : colorutility.i
+
+# target to preprocess a source file
+colorutility.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Coursework.dir/build.make CMakeFiles/Coursework.dir/colorutility.c.i
+.PHONY : colorutility.c.i
+
+colorutility.s: colorutility.c.s
+.PHONY : colorutility.s
+
+# target to generate assembly for a file
+colorutility.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Coursework.dir/build.make CMakeFiles/Coursework.dir/colorutility.c.s
+.PHONY : colorutility.c.s
+
+datautility.o: datautility.c.o
+.PHONY : datautility.o
+
+# target to build an object file
+datautility.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Coursework.dir/build.make CMakeFiles/Coursework.dir/datautility.c.o
+.PHONY : datautility.c.o
+
+datautility.i: datautility.c.i
+.PHONY : datautility.i
+
+# target to preprocess a source file
+datautility.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Coursework.dir/build.make CMakeFiles/Coursework.dir/datautility.c.i
+.PHONY : datautility.c.i
+
+datautility.s: datautility.c.s
+.PHONY : datautility.s
+
+# target to generate assembly for a file
+datautility.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Coursework.dir/build.make CMakeFiles/Coursework.dir/datautility.c.s
+.PHONY : datautility.c.s
+
 handler.o: handler.c.o
 .PHONY : handler.o
 
@@ -177,6 +225,30 @@ iodata.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Coursework.dir/build.make CMakeFiles/Coursework.dir/iodata.c.s
 .PHONY : iodata.c.s
 
+ioutility.o: ioutility.c.o
+.PHONY : ioutility.o
+
+# target to build an object file
+ioutility.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Coursework.dir/build.make CMakeFiles/Coursework.dir/ioutility.c.o
+.PHONY : ioutility.c.o
+
+ioutility.i: ioutility.c.i
+.PHONY : ioutility.i
+
+# target to preprocess a source file
+ioutility.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Coursework.dir/build.make CMakeFiles/Coursework.dir/ioutility.c.i
+.PHONY : ioutility.c.i
+
+ioutility.s: ioutility.c.s
+.PHONY : ioutility.s
+
+# target to generate assembly for a file
+ioutility.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Coursework.dir/build.make CMakeFiles/Coursework.dir/ioutility.c.s
+.PHONY : ioutility.c.s
+
 main.o: main.c.o
 .PHONY : main.o
 
@@ -200,6 +272,30 @@ main.s: main.c.s
 main.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Coursework.dir/build.make CMakeFiles/Coursework.dir/main.c.s
 .PHONY : main.c.s
+
+memutilility.o: memutilility.c.o
+.PHONY : memutilility.o
+
+# target to build an object file
+memutilility.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Coursework.dir/build.make CMakeFiles/Coursework.dir/memutilility.c.o
+.PHONY : memutilility.c.o
+
+memutilility.i: memutilility.c.i
+.PHONY : memutilility.i
+
+# target to preprocess a source file
+memutilility.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Coursework.dir/build.make CMakeFiles/Coursework.dir/memutilility.c.i
+.PHONY : memutilility.c.i
+
+memutilility.s: memutilility.c.s
+.PHONY : memutilility.s
+
+# target to generate assembly for a file
+memutilility.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Coursework.dir/build.make CMakeFiles/Coursework.dir/memutilility.c.s
+.PHONY : memutilility.c.s
 
 utility.o: utility.c.o
 .PHONY : utility.o
@@ -234,15 +330,27 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... Coursework"
+	@echo "... colorutility.o"
+	@echo "... colorutility.i"
+	@echo "... colorutility.s"
+	@echo "... datautility.o"
+	@echo "... datautility.i"
+	@echo "... datautility.s"
 	@echo "... handler.o"
 	@echo "... handler.i"
 	@echo "... handler.s"
 	@echo "... iodata.o"
 	@echo "... iodata.i"
 	@echo "... iodata.s"
+	@echo "... ioutility.o"
+	@echo "... ioutility.i"
+	@echo "... ioutility.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... memutilility.o"
+	@echo "... memutilility.i"
+	@echo "... memutilility.s"
 	@echo "... utility.o"
 	@echo "... utility.i"
 	@echo "... utility.s"

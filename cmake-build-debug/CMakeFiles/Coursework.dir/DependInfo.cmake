@@ -8,9 +8,13 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
+  "/mnt/d/Files/Programming/Coursework/colorutility.c" "/mnt/d/Files/Programming/Coursework/cmake-build-debug/CMakeFiles/Coursework.dir/colorutility.c.o"
+  "/mnt/d/Files/Programming/Coursework/datautility.c" "/mnt/d/Files/Programming/Coursework/cmake-build-debug/CMakeFiles/Coursework.dir/datautility.c.o"
   "/mnt/d/Files/Programming/Coursework/handler.c" "/mnt/d/Files/Programming/Coursework/cmake-build-debug/CMakeFiles/Coursework.dir/handler.c.o"
   "/mnt/d/Files/Programming/Coursework/iodata.c" "/mnt/d/Files/Programming/Coursework/cmake-build-debug/CMakeFiles/Coursework.dir/iodata.c.o"
+  "/mnt/d/Files/Programming/Coursework/ioutility.c" "/mnt/d/Files/Programming/Coursework/cmake-build-debug/CMakeFiles/Coursework.dir/ioutility.c.o"
   "/mnt/d/Files/Programming/Coursework/main.c" "/mnt/d/Files/Programming/Coursework/cmake-build-debug/CMakeFiles/Coursework.dir/main.c.o"
+  "/mnt/d/Files/Programming/Coursework/memutilility.c" "/mnt/d/Files/Programming/Coursework/cmake-build-debug/CMakeFiles/Coursework.dir/memutilility.c.o"
   "/mnt/d/Files/Programming/Coursework/utility.c" "/mnt/d/Files/Programming/Coursework/cmake-build-debug/CMakeFiles/Coursework.dir/utility.c.o"
   )
 set(CMAKE_C_COMPILER_ID "GNU")

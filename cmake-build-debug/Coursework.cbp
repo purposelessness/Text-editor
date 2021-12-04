@@ -76,6 +76,18 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/mnt/d/Files/Programming/Coursework/colorutility.c">
+			<Option target="Coursework"/>
+		</Unit>
+		<Unit filename="/mnt/d/Files/Programming/Coursework/colorutility.h">
+			<Option target="Coursework"/>
+		</Unit>
+		<Unit filename="/mnt/d/Files/Programming/Coursework/datautility.c">
+			<Option target="Coursework"/>
+		</Unit>
+		<Unit filename="/mnt/d/Files/Programming/Coursework/datautility.h">
+			<Option target="Coursework"/>
+		</Unit>
 		<Unit filename="/mnt/d/Files/Programming/Coursework/handler.c">
 			<Option target="Coursework"/>
 		</Unit>
@@ -88,7 +100,19 @@
 		<Unit filename="/mnt/d/Files/Programming/Coursework/iodata.h">
 			<Option target="Coursework"/>
 		</Unit>
+		<Unit filename="/mnt/d/Files/Programming/Coursework/ioutility.c">
+			<Option target="Coursework"/>
+		</Unit>
+		<Unit filename="/mnt/d/Files/Programming/Coursework/ioutility.h">
+			<Option target="Coursework"/>
+		</Unit>
 		<Unit filename="/mnt/d/Files/Programming/Coursework/main.c">
+			<Option target="Coursework"/>
+		</Unit>
+		<Unit filename="/mnt/d/Files/Programming/Coursework/memutilility.c">
+			<Option target="Coursework"/>
+		</Unit>
+		<Unit filename="/mnt/d/Files/Programming/Coursework/memutilility.h">
 			<Option target="Coursework"/>
 		</Unit>
 		<Unit filename="/mnt/d/Files/Programming/Coursework/utility.c">

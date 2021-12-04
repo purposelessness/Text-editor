@@ -1,5 +1,6 @@
 #include "iodata.h"
-#include "utility.h"
+#include "ioutility.h"
+#include "memutilility.h"
 #include <malloc.h>
 #include <ctype.h>
 #include <wchar.h>
@@ -11,7 +12,7 @@ struct Text scantxt() {
 
     pars = malloc(buf_size * sizeof(struct Paragraph *));
     if (pars == NULL) {
-        wprintf(L"Memory allocation error");
+        wprintf(L"Memory allocation error\n");
         goto err;
     }
 
@@ -56,7 +57,7 @@ struct Paragraph *scanpar() {
 
     snts = malloc(buf_size * sizeof(struct Sentence *));
     if (snts == NULL) {
-        wprintf(L"Memory allocation error");
+        wprintf(L"Memory allocation error\n");
         goto err;
     }
 
@@ -87,7 +88,7 @@ struct Paragraph *scanpar() {
     struct Paragraph *paragraph = malloc(sizeof(struct Paragraph));
 
     if (paragraph == NULL) {
-        wprintf(L"Memory allocation error");
+        wprintf(L"Memory allocation error\n");
         goto err_free_par;
     }
 
@@ -107,16 +108,23 @@ struct Paragraph *scanpar() {
 }
 
 struct Sentence *scansnt() {
+    struct Sentence *snt;
     wchar_t c, *str, *buf;
     wchar_t *endchars = L".", *seps = L" ,.";
-    int len = 0, buf_size = 10, size_step = 20;
+    int len = 0, buf_size = 15, size_step = 25;
     int endlcnt = 0;
     bool state = false, nline = false;
 
+    snt = malloc(sizeof(struct Sentence));
+    if (snt == NULL) {
+        wprintf(L"Memory allocation error\n");
+        return NULL;
+    }
+
     str = malloc(buf_size * sizeof(wchar_t));
     if (str == NULL) {
-        wprintf(L"Memory allocation error");
-        return NULL;
+        wprintf(L"Memory allocation error\n");
+        goto err_free_snt;
     }
 
     while ((c = (wchar_t) getch())) {
@@ -133,7 +141,7 @@ struct Sentence *scansnt() {
 
         if (len == buf_size - 1) {
             if (!(buf = realloc(str, (buf_size += size_step) * sizeof(wchar_t)))) {
-                wprintf(L"Memory reallocation error");
+                wprintf(L"Memory reallocation error\n");
                 goto err_free_str;
             }
             str = buf;
@@ -152,29 +160,23 @@ struct Sentence *scansnt() {
 
     if (buf_size != len + 1) {
         if (!(buf = realloc(str, (len + 1) * sizeof(wchar_t)))) {
-            wprintf(L"Memory reallocation error");
+            wprintf(L"Memory reallocation error\n");
             goto err_free_str;
         }
         str = buf;
     }
-    str[len] = '\0';
-
-    struct Sentence *snt = malloc(sizeof(struct Sentence));
-
-    if (snt == NULL) {
-        wprintf(L"Memory allocation error");
-        goto err_free_snt;
-    }
+    str[len++] = '\0';
 
     snt->value = str;
-    snt->length = len - 1;
+    snt->length = len;
     snt->nline = nline;
+
     return snt;
 
-    err_free_snt:
-        free(snt);
     err_free_str:
         free(str);
+    err_free_snt:
+        free(snt);
         return NULL;
 }
 

@@ -2,13 +2,15 @@
 #include <string.h>
 #include <wchar.h>
 #include "handler.h"
-#include "utility.h"
+#include "datautility.h"
+#include "memutilility.h"
+#include "colorutility.h"
 
 int sntncscmp(const void *p1, const void *p2) {
     return snticmp(*(const struct Sentence **) p1, *(const struct Sentence **) p2);
 }
 
-int cmp(const void *p1, const void *p2) {
+int bsearchcmp(const void *p1, const void *p2) {
     return snticmp((const struct Sentence *) p1, *(const struct Sentence **) p2);
 }
 
@@ -29,7 +31,7 @@ void filter_text(struct Text *text) {
         while (i < sntcnt) {
             snt = snts[i];
 
-            if (flen < 2) {
+            if (flen < 1) {
                 fsnts[flen++] = snt;
                 i++;
                 continue;
@@ -37,7 +39,7 @@ void filter_text(struct Text *text) {
 
             tmp = NULL;
             qsort(fsnts, flen, sizeof(struct Sentence *), sntncscmp);
-            tmp = bsearch(snt, fsnts, flen, sizeof(struct Sentence *), cmp);
+            tmp = bsearch(snt, fsnts, flen, sizeof(struct Sentence *), bsearchcmp);
 
             if (tmp != NULL) {
                 freesnt(snt);
@@ -49,7 +51,7 @@ void filter_text(struct Text *text) {
             }
             if (flen == buf_size) {
                 if (!(buf = realloc(fsnts, (buf_size += size_step) * sizeof(struct Sentence *)))) {
-                    wprintf(L"Memory reallocation error");
+                    wprintf(L"Memory reallocation error\n");
                     par->length = sntcnt;
                     goto exit;
                 }
@@ -61,7 +63,6 @@ void filter_text(struct Text *text) {
         }
 
         par->length = sntcnt;
-
         if (sntcnt == 0) {
             freepar(par);
 
@@ -69,16 +70,30 @@ void filter_text(struct Text *text) {
                 memmove(pars + j, pars + j + 1, (parcnt - j) * sizeof(struct Paragraph *));
             }
             j--;
+            continue;
         }
+
+        if (!(buf = realloc(snts, sntcnt * sizeof(struct Sentence *)))) {
+            wprintf(L"Memory reallocation error\n");
+
+        }
+        par->sentences = buf;
     }
 
     text->length = parcnt;
+    text->paragraphs = realloc(text->paragraphs, parcnt * sizeof(struct Paragraph *));
+
     exit:
     free(fsnts);
 }
 
-void color_text(struct Text text) {
+void color_text(struct Text src) {
+    struct Sentence *snt = src.paragraphs[0]->sentences[0];
+    wchar_t *str = strcolor(snt);
+    wprintf(L"%ls\n", str);
+    free(str);
 
+//    free(wrds->value);
 }
 
 //void print_capitalized_text(struct Text text) {
@@ -92,3 +107,25 @@ void color_text(struct Text text) {
 //        }
 //    }
 //}
+
+int cmp(const void *a, const void *b) {
+    return 0;
+}
+
+void sort(struct Text text) {
+    int len = 0, c = 0;
+    for (int i = 0; i < text.length; i++) {
+        len += text.paragraphs[i]->length;
+    }
+    wchar_t *snts[len];
+
+    struct Paragraph *par;
+    for (int i = 0; i < text.length; i++) {
+        par = text.paragraphs[i];
+        for (int j = 0; j < par->length; j++) {
+            snts[c++] = par->sentences[j]->value;
+        }
+    }
+
+//    qsort();
+}

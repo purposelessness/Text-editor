@@ -118,12 +118,68 @@ CMakeFiles/Coursework.dir/handler.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/Coursework.dir/handler.c.s"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /mnt/d/Files/Programming/Coursework/handler.c -o CMakeFiles/Coursework.dir/handler.c.s
 
+CMakeFiles/Coursework.dir/ioutility.c.o: CMakeFiles/Coursework.dir/flags.make
+CMakeFiles/Coursework.dir/ioutility.c.o: ../ioutility.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/d/Files/Programming/Coursework/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object CMakeFiles/Coursework.dir/ioutility.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/Coursework.dir/ioutility.c.o -c /mnt/d/Files/Programming/Coursework/ioutility.c
+
+CMakeFiles/Coursework.dir/ioutility.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/Coursework.dir/ioutility.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /mnt/d/Files/Programming/Coursework/ioutility.c > CMakeFiles/Coursework.dir/ioutility.c.i
+
+CMakeFiles/Coursework.dir/ioutility.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/Coursework.dir/ioutility.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /mnt/d/Files/Programming/Coursework/ioutility.c -o CMakeFiles/Coursework.dir/ioutility.c.s
+
+CMakeFiles/Coursework.dir/memutilility.c.o: CMakeFiles/Coursework.dir/flags.make
+CMakeFiles/Coursework.dir/memutilility.c.o: ../memutilility.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/d/Files/Programming/Coursework/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building C object CMakeFiles/Coursework.dir/memutilility.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/Coursework.dir/memutilility.c.o -c /mnt/d/Files/Programming/Coursework/memutilility.c
+
+CMakeFiles/Coursework.dir/memutilility.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/Coursework.dir/memutilility.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /mnt/d/Files/Programming/Coursework/memutilility.c > CMakeFiles/Coursework.dir/memutilility.c.i
+
+CMakeFiles/Coursework.dir/memutilility.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/Coursework.dir/memutilility.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /mnt/d/Files/Programming/Coursework/memutilility.c -o CMakeFiles/Coursework.dir/memutilility.c.s
+
+CMakeFiles/Coursework.dir/datautility.c.o: CMakeFiles/Coursework.dir/flags.make
+CMakeFiles/Coursework.dir/datautility.c.o: ../datautility.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/d/Files/Programming/Coursework/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building C object CMakeFiles/Coursework.dir/datautility.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/Coursework.dir/datautility.c.o -c /mnt/d/Files/Programming/Coursework/datautility.c
+
+CMakeFiles/Coursework.dir/datautility.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/Coursework.dir/datautility.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /mnt/d/Files/Programming/Coursework/datautility.c > CMakeFiles/Coursework.dir/datautility.c.i
+
+CMakeFiles/Coursework.dir/datautility.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/Coursework.dir/datautility.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /mnt/d/Files/Programming/Coursework/datautility.c -o CMakeFiles/Coursework.dir/datautility.c.s
+
+CMakeFiles/Coursework.dir/colorutility.c.o: CMakeFiles/Coursework.dir/flags.make
+CMakeFiles/Coursework.dir/colorutility.c.o: ../colorutility.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/d/Files/Programming/Coursework/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building C object CMakeFiles/Coursework.dir/colorutility.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/Coursework.dir/colorutility.c.o -c /mnt/d/Files/Programming/Coursework/colorutility.c
+
+CMakeFiles/Coursework.dir/colorutility.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/Coursework.dir/colorutility.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /mnt/d/Files/Programming/Coursework/colorutility.c > CMakeFiles/Coursework.dir/colorutility.c.i
+
+CMakeFiles/Coursework.dir/colorutility.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/Coursework.dir/colorutility.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /mnt/d/Files/Programming/Coursework/colorutility.c -o CMakeFiles/Coursework.dir/colorutility.c.s
+
 # Object files for target Coursework
 Coursework_OBJECTS = \
 "CMakeFiles/Coursework.dir/main.c.o" \
 "CMakeFiles/Coursework.dir/iodata.c.o" \
 "CMakeFiles/Coursework.dir/utility.c.o" \
-"CMakeFiles/Coursework.dir/handler.c.o"
+"CMakeFiles/Coursework.dir/handler.c.o" \
+"CMakeFiles/Coursework.dir/ioutility.c.o" \
+"CMakeFiles/Coursework.dir/memutilility.c.o" \
+"CMakeFiles/Coursework.dir/datautility.c.o" \
+"CMakeFiles/Coursework.dir/colorutility.c.o"
 
 # External object files for target Coursework
 Coursework_EXTERNAL_OBJECTS =
@@ -132,9 +188,13 @@ Coursework: CMakeFiles/Coursework.dir/main.c.o
 Coursework: CMakeFiles/Coursework.dir/iodata.c.o
 Coursework: CMakeFiles/Coursework.dir/utility.c.o
 Coursework: CMakeFiles/Coursework.dir/handler.c.o
+Coursework: CMakeFiles/Coursework.dir/ioutility.c.o
+Coursework: CMakeFiles/Coursework.dir/memutilility.c.o
+Coursework: CMakeFiles/Coursework.dir/datautility.c.o
+Coursework: CMakeFiles/Coursework.dir/colorutility.c.o
 Coursework: CMakeFiles/Coursework.dir/build.make
 Coursework: CMakeFiles/Coursework.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/mnt/d/Files/Programming/Coursework/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking C executable Coursework"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/mnt/d/Files/Programming/Coursework/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Linking C executable Coursework"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/Coursework.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
