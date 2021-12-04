@@ -18,6 +18,7 @@ CMakeFiles/Coursework.dir/handler.c.o: \
  ../datautility.h \
  ../handler.c \
  ../handler.h \
+ ../iodata.h \
  ../memutilility.h
 CMakeFiles/Coursework.dir/iodata.c.o: \
  ../datatypes.h \

@@ -5,10 +5,10 @@
 
 void filter_text(struct Text *text);
 
-void color_text(struct Text src);
+void colorize_text(struct Text text);
 
 void print_capitalized_words(struct Text text);
 
-void sort(struct Text text);
+void print_sorted_text(struct Text text);
 
 #endif //COURSEWORK_HANDLER_H

@@ -6,18 +6,6 @@
 
 #IncludeRegexTransform: 
 
-/mnt/d/Files/Programming/Coursework/colorutility.c
-wchar.h
--
-malloc.h
--
-datautility.h
-/mnt/d/Files/Programming/Coursework/datautility.h
-colorutility.h
-/mnt/d/Files/Programming/Coursework/colorutility.h
-memutilility.h
-/mnt/d/Files/Programming/Coursework/memutilility.h
-
 /mnt/d/Files/Programming/Coursework/colorutility.h
 stddef.h
 -
@@ -27,16 +15,6 @@ datatypes.h
 /mnt/d/Files/Programming/Coursework/datatypes.h
 stddef.h
 -
-
-/mnt/d/Files/Programming/Coursework/datautility.c
-wchar.h
--
-malloc.h
--
-datautility.h
-/mnt/d/Files/Programming/Coursework/datautility.h
-utility.h
-/mnt/d/Files/Programming/Coursework/utility.h
 
 /mnt/d/Files/Programming/Coursework/datautility.h
 datatypes.h
@@ -57,58 +35,18 @@ memutilility.h
 /mnt/d/Files/Programming/Coursework/memutilility.h
 colorutility.h
 /mnt/d/Files/Programming/Coursework/colorutility.h
+iodata.h
+/mnt/d/Files/Programming/Coursework/iodata.h
 
 /mnt/d/Files/Programming/Coursework/handler.h
 datatypes.h
 /mnt/d/Files/Programming/Coursework/datatypes.h
 
-/mnt/d/Files/Programming/Coursework/iodata.c
-iodata.h
-/mnt/d/Files/Programming/Coursework/iodata.h
-ioutility.h
-/mnt/d/Files/Programming/Coursework/ioutility.h
-memutilility.h
-/mnt/d/Files/Programming/Coursework/memutilility.h
-malloc.h
--
-ctype.h
--
-wchar.h
--
-
 /mnt/d/Files/Programming/Coursework/iodata.h
 datatypes.h
 /mnt/d/Files/Programming/Coursework/datatypes.h
 
-/mnt/d/Files/Programming/Coursework/ioutility.h
-stddef.h
--
-
-/mnt/d/Files/Programming/Coursework/main.c
-locale.h
--
-datatypes.h
-/mnt/d/Files/Programming/Coursework/datatypes.h
-iodata.h
-/mnt/d/Files/Programming/Coursework/iodata.h
-handler.h
-/mnt/d/Files/Programming/Coursework/handler.h
-memutilility.h
 /mnt/d/Files/Programming/Coursework/memutilility.h
-
-/mnt/d/Files/Programming/Coursework/memutilility.c
-malloc.h
--
-memutilility.h
-/mnt/d/Files/Programming/Coursework/memutilility.h
-
-/mnt/d/Files/Programming/Coursework/memutilility.h
-datatypes.h
-/mnt/d/Files/Programming/Coursework/datatypes.h
-
-/mnt/d/Files/Programming/Coursework/utility.h
-stddef.h
--
 datatypes.h
 /mnt/d/Files/Programming/Coursework/datatypes.h
 

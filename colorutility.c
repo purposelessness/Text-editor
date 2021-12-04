@@ -10,33 +10,73 @@
 #define GREEN L"\033[32m"
 #define YELLOW L"\033[33m"
 
-wchar_t *wrdclr(int wrdlen) {
-    switch (wrdlen % 4) {
-        case 0:
-            return RED;
-        case 1:
-            return BLUE;
-        case 2:
-            return GREEN;
-        case 3:
-            return YELLOW;
-        default:
-            return DEFAULT;
+wchar_t *wrdclr(int wrdlen);
+
+struct Text txtcolor(struct Text text) {
+    struct Text txt;
+    struct Paragraph **srcpars = text.paragraphs, **pars;
+    int len = text.length;
+
+    pars = malloc(len * sizeof(struct Paragraph *));
+    if (pars == NULL) {
+        wprintf(L"Memory allocation error");
+        txt.length = 0;
+        return txt;
     }
+
+    for (int i = 0; i < len; i++)
+        pars[i] = parcolor(*srcpars[i]);
+
+    txt.paragraphs = pars;
+    txt.length = len;
+    return txt;
 }
 
-wchar_t *strcolor(const struct Sentence *snt) {
-    struct Words *wrds = sntwrds(*snt);
-    int strlen = snt->length, wrdlen;
+struct Paragraph *parcolor(const struct Paragraph paragraph) {
+    struct Paragraph *par;
+    struct Sentence **snts, **srcsnts = paragraph.sentences;
+    int len = paragraph.length;
+
+    par = malloc(sizeof(struct Paragraph));
+    if (par == NULL) {
+        wprintf(L"Memory allocation error");
+        return NULL;
+    }
+
+    snts = malloc(len * sizeof(struct Sentence *));
+    if (snts == NULL) {
+        wprintf(L"Memory allocation error");
+        free(par);
+        return NULL;
+    }
+
+    for (int i = 0; i < len; i++)
+        snts[i] = sntcolor(*srcsnts[i]);
+
+    par->sentences = snts;
+    par->length = len;
+    return par;
+}
+
+struct Sentence *sntcolor(const struct Sentence sentence) {
+    struct Sentence *snt;
+    struct Words *wrds = sntwrds(sentence);
+    int strlen = sentence.length, wrdlen;
     wchar_t *pwrd = NULL, *wrd, *color, *str;
+
+    snt = malloc(sizeof(struct Sentence));
+    if (snt == NULL) {
+        wprintf(L"Memory allocation error");
+        return NULL;
+    }
 
     str = malloc((strlen + 9 * wrds->length) * sizeof(wchar_t));
     if (str == NULL) {
         wprintf(L"Memory allocation error");
-
+        free(snt);
         return NULL;
     }
-    wcsncpy(str, snt->value, strlen);
+    wcsncpy(str, sentence.value, strlen);
 
     for (int i = 0; i < wrds->length; i++) {
         wrd = wrds->value[i];
@@ -52,5 +92,23 @@ wchar_t *strcolor(const struct Sentence *snt) {
     }
     freewrds(wrds);
 
-    return str;
+    snt->value = str;
+    snt->length = (int) wcslen(str);
+
+    return snt;
+}
+
+wchar_t *wrdclr(int wrdlen) {
+    switch (wrdlen % 4) {
+        case 0:
+            return RED;
+        case 1:
+            return BLUE;
+        case 2:
+            return GREEN;
+        case 3:
+            return YELLOW;
+        default:
+            return DEFAULT;
+    }
 }

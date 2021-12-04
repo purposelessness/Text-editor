@@ -5,6 +5,7 @@
 #include "datautility.h"
 #include "memutilility.h"
 #include "colorutility.h"
+#include "iodata.h"
 
 int sntncscmp(const void *p1, const void *p2) {
     return snticmp(*(const struct Sentence **) p1, *(const struct Sentence **) p2);
@@ -87,45 +88,45 @@ void filter_text(struct Text *text) {
     free(fsnts);
 }
 
-void color_text(struct Text src) {
-    struct Sentence *snt = src.paragraphs[0]->sentences[0];
-    wchar_t *str = strcolor(snt);
-    wprintf(L"%ls\n", str);
-    free(str);
-
-//    free(wrds->value);
+void colorize_text(struct Text text) {
+    struct Text coloredtxt = txtcolor(text);
+    printtxt(coloredtxt);
+    freetxt(coloredtxt);
 }
 
-//void print_capitalized_text(struct Text text) {
-//    struct Words words;
-//
-//    for (int i = 0; i < text.length; i++) {
-//        words = sntwrds(*text.sentences[i]);
-//
-//        for (int j = 0; j < words.length; j++) {
-//
-//        }
-//    }
-//}
+void print_capitalized_words(struct Text text) {
+    struct Word *wrds;
+}
 
 int cmp(const void *a, const void *b) {
-    return 0;
+    struct Sentence *x = *(struct Sentence **) a;
+    struct Sentence *y = *(struct Sentence **) b;
+    struct Words *xw = sntwrds(*x), *yw = sntwrds(*y);
+    int out = (int) (wcslen(xw->value[xw->length - 1]) - wcslen(yw->value[yw->length - 1]));
+    freewrds(xw);
+    freewrds(yw);
+    return out;
 }
 
-void sort(struct Text text) {
+void print_sorted_text(struct Text text) {
     int len = 0, c = 0;
     for (int i = 0; i < text.length; i++) {
         len += text.paragraphs[i]->length;
     }
-    wchar_t *snts[len];
+    struct Sentence *snts[len];
 
     struct Paragraph *par;
     for (int i = 0; i < text.length; i++) {
         par = text.paragraphs[i];
         for (int j = 0; j < par->length; j++) {
-            snts[c++] = par->sentences[j]->value;
+            snts[c++] = par->sentences[j];
         }
     }
 
-//    qsort();
+    qsort(snts, len, sizeof(struct Sentence *), cmp);
+
+    for (int i = 0; i < len; i++) {
+        printsnt(snts[i]);
+    }
+    wprintf(L"\n");
 }

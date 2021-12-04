@@ -3,7 +3,9 @@
 
 #include <stddef.h>
 
-typedef enum { false, true } bool;
+typedef enum {
+    false, true
+} bool;
 
 struct Text {
     struct Paragraph **paragraphs;
@@ -23,6 +25,12 @@ struct Sentence {
 
 struct Words {
     wchar_t **value;
+    int length;
+};
+
+struct Word {
+    wchar_t *value;
+    int *sentences;
     int length;
 };
 

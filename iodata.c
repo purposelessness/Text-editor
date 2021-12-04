@@ -7,7 +7,7 @@
 
 struct Text scantxt() {
     struct Text text;
-    int len = 0, buf_size = 2, size_step = 4;
+    int len = 0, buf_size = 3, size_step = 2;
     struct Paragraph **pars, **buf, *par;
 
     pars = malloc(buf_size * sizeof(struct Paragraph *));
@@ -52,7 +52,7 @@ struct Text scantxt() {
 }
 
 struct Paragraph *scanpar() {
-    int len = 0, buf_size = 4, size_step = 8;
+    int len = 0, buf_size = 10, size_step = 8;
     struct Sentence **snts, **buf, *snt;
 
     snts = malloc(buf_size * sizeof(struct Sentence *));
@@ -111,7 +111,7 @@ struct Sentence *scansnt() {
     struct Sentence *snt;
     wchar_t c, *str, *buf;
     wchar_t *endchars = L".", *seps = L" ,.";
-    int len = 0, buf_size = 15, size_step = 25;
+    int len = 0, buf_size = 60, size_step = 30;
     int endlcnt = 0;
     bool state = false, nline = false;
 

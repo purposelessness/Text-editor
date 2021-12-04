@@ -15,11 +15,9 @@ int main() {
 
     filter_text(&text);
 
-    color_text(text);
+    colorize_text(text);
 
-//    printtxt(text);
-
-//    sort(text);
+    print_sorted_text(text);
 
     freetxt(text);
 

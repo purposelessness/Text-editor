@@ -11,9 +11,9 @@ int snticmp(const struct Sentence *snt1, const struct Sentence *snt2) {
 #endif
 }
 
-struct Words *sntwrds(struct Sentence sentence) {
+struct Words *sntwrds(const struct Sentence sentence) {
     struct Words *words;
-    int len = 0, buf_size = 5, buf_step = 10;
+    int len = 0, buf_size = 10, buf_step = 5;
     wchar_t *str;
     wchar_t **arr, **buf, *word, *pt;
     wchar_t *sep = L" ,.\n";
