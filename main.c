@@ -40,31 +40,5 @@ int main() {
 
     freetxt(text);
 
-//    struct Hashtable *hashtable = create_hashtable(1);
-//
-//    struct Sentence *snt = malloc(sizeof(struct Sentence));
-//    snt->value = L"snt1";
-//    struct Sentence *snt2 = malloc(sizeof(struct Sentence));
-//    snt2->value = L"snt2";
-//    struct Sentence *snt3 = malloc(sizeof(struct Sentence));
-//    snt3->value = L"snt3";
-//
-//    add(&hashtable, L"Hel", snt, sizeof(*snt));
-//    add(&hashtable, L"Cau", snt2, sizeof(*snt));
-//    add(&hashtable, L"LOL", snt3, sizeof(*snt));
-//
-//    struct Item *nd = find(hashtable, L"Hel");
-//    struct Item *nd2 = find(hashtable, L"Cau");
-//    struct Item *nd3 = find(hashtable, L"LOL");
-//    wprintf(L"\n%ls\n", ((struct Sentence *)nd->value)->value);
-//    wprintf(L"\n%ls\n", ((struct Sentence *)nd2->value)->value);
-//    wprintf(L"\n%ls\n", ((struct Sentence *)nd3->value)->value);
-//    wprintf(L"%d", hashtable->size);
-//
-//    free_hashtable(hashtable);
-//    free(snt);
-//    free(snt2);
-//    free(snt3);
-
     return 0;
 }
