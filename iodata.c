@@ -43,16 +43,16 @@ struct Text scantxt() {
     return text;
 
     err_free_pars:
-        for (int i = 0; i < len; i++)
-            freepar(pars[i]);
-        free(pars);
+    for (int i = 0; i < len; i++)
+        freepar(pars[i]);
+    free(pars);
     err:
-        text.length = 0;
-        return text;
+    text.length = 0;
+    return text;
 }
 
 struct Paragraph *scanpar() {
-    int len = 0, buf_size = 10, size_step = 8;
+    int len = 0, buf_size = 8, size_step = 5;
     struct Sentence **snts, **buf, *snt;
 
     snts = malloc(buf_size * sizeof(struct Sentence *));
@@ -70,9 +70,6 @@ struct Paragraph *scanpar() {
             snts = buf;
         }
         snts[len++] = snt;
-
-        if (snt->nline == true)
-            break;
     }
     if (len == 0)
         goto err_free_snts;
@@ -98,13 +95,13 @@ struct Paragraph *scanpar() {
     return paragraph;
 
     err_free_par:
-        free(paragraph);
+    free(paragraph);
     err_free_snts:
-        for (int i = 0; i < len; i++)
-            freesnt(snts[i]);
-        free(snts);
+    for (int i = 0; i < len; i++)
+        freesnt(snts[i]);
+    free(snts);
     err:
-        return NULL;
+    return NULL;
 }
 
 struct Sentence *scansnt() {
@@ -112,7 +109,6 @@ struct Sentence *scansnt() {
     wchar_t c, *str, *buf;
     wchar_t *endchars = L".", *seps = L" ,.";
     int len = 0, buf_size = 60, size_step = 30;
-    int endlcnt = 0;
     bool state = false, nline = false;
 
     snt = malloc(sizeof(struct Sentence));
@@ -129,11 +125,8 @@ struct Sentence *scansnt() {
 
     while ((c = (wchar_t) getch())) {
         if (state == false) {
-            if (c == '\n') {
-                endlcnt++;
-                if (endlcnt >= 2)
-                    goto err_free_str;
-            }
+            if (c == '\n')
+                goto err_free_str;
             if (isspace(c) || (ispunct(c) && wcschr(seps, c)))
                 continue;
             state = true;
@@ -148,12 +141,8 @@ struct Sentence *scansnt() {
         }
         str[len++] = c;
 
-        if (wcschr(endchars, c)) {
-            c = (wchar_t) getch();
-            nline = c == L'\n' ? true : false;
-            ungetch(c);
+        if (wcschr(endchars, c))
             break;
-        }
     }
     if (state == false)
         goto err_free_str;
@@ -169,15 +158,14 @@ struct Sentence *scansnt() {
 
     snt->value = str;
     snt->length = len;
-    snt->nline = nline;
 
     return snt;
 
     err_free_str:
-        free(str);
+    free(str);
     err_free_snt:
-        free(snt);
-        return NULL;
+    free(snt);
+    return NULL;
 }
 
 void printtxt(struct Text text) {

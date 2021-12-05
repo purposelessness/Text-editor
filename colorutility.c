@@ -24,8 +24,17 @@ struct Text txtcolor(struct Text text) {
         return txt;
     }
 
-    for (int i = 0; i < len; i++)
+    for (int i = 0; i < len; i++) {
         pars[i] = parcolor(*srcpars[i]);
+
+        if (pars[i] == NULL) {
+            for (int j = 0; j < i; j++)
+                free(pars[j]);
+            free(pars);
+            txt.length = 0;
+            return txt;
+        }
+    }
 
     txt.paragraphs = pars;
     txt.length = len;
@@ -50,8 +59,16 @@ struct Paragraph *parcolor(const struct Paragraph paragraph) {
         return NULL;
     }
 
-    for (int i = 0; i < len; i++)
+    for (int i = 0; i < len; i++) {
         snts[i] = sntcolor(*srcsnts[i]);
+
+        if (snts[i] == NULL) {
+            for (int j = 0; j < i; j++)
+                free(snts[j]);
+            free(snts);
+            return NULL;
+        }
+    }
 
     par->sentences = snts;
     par->length = len;

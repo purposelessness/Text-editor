@@ -177,6 +177,30 @@ datautility.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Coursework.dir/build.make CMakeFiles/Coursework.dir/datautility.c.s
 .PHONY : datautility.c.s
 
+dictionary.o: dictionary.c.o
+.PHONY : dictionary.o
+
+# target to build an object file
+dictionary.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Coursework.dir/build.make CMakeFiles/Coursework.dir/dictionary.c.o
+.PHONY : dictionary.c.o
+
+dictionary.i: dictionary.c.i
+.PHONY : dictionary.i
+
+# target to preprocess a source file
+dictionary.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Coursework.dir/build.make CMakeFiles/Coursework.dir/dictionary.c.i
+.PHONY : dictionary.c.i
+
+dictionary.s: dictionary.c.s
+.PHONY : dictionary.s
+
+# target to generate assembly for a file
+dictionary.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Coursework.dir/build.make CMakeFiles/Coursework.dir/dictionary.c.s
+.PHONY : dictionary.c.s
+
 handler.o: handler.c.o
 .PHONY : handler.o
 
@@ -336,6 +360,9 @@ help:
 	@echo "... datautility.o"
 	@echo "... datautility.i"
 	@echo "... datautility.s"
+	@echo "... dictionary.o"
+	@echo "... dictionary.i"
+	@echo "... dictionary.s"
 	@echo "... handler.o"
 	@echo "... handler.i"
 	@echo "... handler.s"

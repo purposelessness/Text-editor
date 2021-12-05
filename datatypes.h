@@ -20,7 +20,6 @@ struct Paragraph {
 struct Sentence {
     wchar_t *value;
     int length;
-    bool nline;
 };
 
 struct Words {
@@ -31,7 +30,7 @@ struct Words {
 struct Word {
     wchar_t *value;
     int *sentences;
-    int length;
+    int sntlen;
 };
 
 #endif //COURSEWORK_DATATYPES_H

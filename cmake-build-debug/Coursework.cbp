@@ -88,6 +88,12 @@
 		<Unit filename="/mnt/d/Files/Programming/Coursework/datautility.h">
 			<Option target="Coursework"/>
 		</Unit>
+		<Unit filename="/mnt/d/Files/Programming/Coursework/dictionary.c">
+			<Option target="Coursework"/>
+		</Unit>
+		<Unit filename="/mnt/d/Files/Programming/Coursework/dictionary.h">
+			<Option target="Coursework"/>
+		</Unit>
 		<Unit filename="/mnt/d/Files/Programming/Coursework/handler.c">
 			<Option target="Coursework"/>
 		</Unit>

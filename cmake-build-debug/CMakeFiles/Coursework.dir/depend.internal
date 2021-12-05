@@ -12,6 +12,9 @@ CMakeFiles/Coursework.dir/datautility.c.o
  /mnt/d/Files/Programming/Coursework/datautility.c
  /mnt/d/Files/Programming/Coursework/datautility.h
  /mnt/d/Files/Programming/Coursework/utility.h
+CMakeFiles/Coursework.dir/dictionary.c.o
+ /mnt/d/Files/Programming/Coursework/dictionary.c
+ /mnt/d/Files/Programming/Coursework/dictionary.h
 CMakeFiles/Coursework.dir/handler.c.o
  /mnt/d/Files/Programming/Coursework/colorutility.h
  /mnt/d/Files/Programming/Coursework/datatypes.h
@@ -31,6 +34,7 @@ CMakeFiles/Coursework.dir/ioutility.c.o
  /mnt/d/Files/Programming/Coursework/ioutility.h
 CMakeFiles/Coursework.dir/main.c.o
  /mnt/d/Files/Programming/Coursework/datatypes.h
+ /mnt/d/Files/Programming/Coursework/dictionary.h
  /mnt/d/Files/Programming/Coursework/handler.h
  /mnt/d/Files/Programming/Coursework/iodata.h
  /mnt/d/Files/Programming/Coursework/main.c

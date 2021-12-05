@@ -11,4 +11,6 @@ void freesnt(struct Sentence *sentence);
 
 void freewrds(struct Words *words);
 
+void freewrd(struct Word *word);
+
 #endif //COURSEWORK_MEMUTILILITY_H

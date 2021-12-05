@@ -12,6 +12,9 @@ CMakeFiles/Coursework.dir/datautility.c.o: \
  ../datautility.c \
  ../datautility.h \
  ../utility.h
+CMakeFiles/Coursework.dir/dictionary.c.o: \
+ ../dictionary.c \
+ ../dictionary.h
 CMakeFiles/Coursework.dir/handler.c.o: \
  ../colorutility.h \
  ../datatypes.h \
@@ -31,6 +34,7 @@ CMakeFiles/Coursework.dir/ioutility.c.o: \
  ../ioutility.h
 CMakeFiles/Coursework.dir/main.c.o: \
  ../datatypes.h \
+ ../dictionary.h \
  ../handler.h \
  ../iodata.h \
  ../main.c \

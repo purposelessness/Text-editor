@@ -7,7 +7,7 @@ int snticmp(const struct Sentence *snt1, const struct Sentence *snt2) {
 #ifdef __linux__
     return wcsncasecmp(snt1->value, snt2->value, max((int) snt1->length, (int) snt2->length) - 2);
 #elif _WIN32
-    return _wcsnicmp(snt1->value, snt2->value, max((int) snt1->length, (int) snt2->length) - 2);
+    return _wcsnicmp(snt1->value, snt2->value, max((int) snt1->sntlen, (int) snt2->sntlen) - 2);
 #endif
 }
 

@@ -24,3 +24,8 @@ void freewrds(struct Words *words) {
     free(words->value);
     free(words);
 }
+
+void freewrd(struct Word *word) {
+    free(word->sentences);
+    free(word);
+}

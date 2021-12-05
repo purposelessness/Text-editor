@@ -1,6 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/Coursework.dir/colorutility.c.o"
   "CMakeFiles/Coursework.dir/datautility.c.o"
+  "CMakeFiles/Coursework.dir/dictionary.c.o"
   "CMakeFiles/Coursework.dir/handler.c.o"
   "CMakeFiles/Coursework.dir/iodata.c.o"
   "CMakeFiles/Coursework.dir/ioutility.c.o"

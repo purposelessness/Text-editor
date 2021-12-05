@@ -15,13 +15,17 @@ int bsearchcmp(const void *p1, const void *p2) {
     return snticmp((const struct Sentence *) p1, *(const struct Sentence **) p2);
 }
 
-void filter_text(struct Text *text) {
+int filter_text(struct Text *text) {
     struct Paragraph **pars = text->paragraphs, *par;
     struct Sentence **snts, **fsnts, **buf, **tmp, *snt;
     int sntcnt, parcnt = text->length;
-    int flen = 0, buf_size = 3, size_step = 6;
+    int flen = 0, buf_size = 8, size_step = 5;
 
     fsnts = malloc(buf_size * sizeof(struct Sentence *));
+    if (fsnts == NULL) {
+        wprintf(L"Memory allocation error");
+        return 1;
+    }
 
     for (int j = 0; j < parcnt; j++) {
         par = pars[j];
@@ -45,9 +49,8 @@ void filter_text(struct Text *text) {
             if (tmp != NULL) {
                 freesnt(snt);
 
-                if (i != sntcnt-- - 1) {
+                if (i != sntcnt-- - 1)
                     memmove(snts + i, snts + i + 1, (sntcnt - i) * sizeof(struct Sentence *));
-                }
                 continue;
             }
             if (flen == buf_size) {
@@ -66,39 +69,105 @@ void filter_text(struct Text *text) {
         par->length = sntcnt;
         if (sntcnt == 0) {
             freepar(par);
-
-            if (j != parcnt-- - 1) {
+            if (j != parcnt-- - 1)
                 memmove(pars + j, pars + j + 1, (parcnt - j) * sizeof(struct Paragraph *));
-            }
             j--;
             continue;
         }
 
-        if (!(buf = realloc(snts, sntcnt * sizeof(struct Sentence *)))) {
+        if (!(buf = realloc(snts, sntcnt * sizeof(struct Sentence *))))
             wprintf(L"Memory reallocation error\n");
-
-        }
-        par->sentences = buf;
+        else
+            par->sentences = buf;
     }
 
     text->length = parcnt;
-    text->paragraphs = realloc(text->paragraphs, parcnt * sizeof(struct Paragraph *));
+    if (!(pars = realloc(text->paragraphs, parcnt * sizeof(struct Paragraph *))))
+        wprintf(L"Memory reallocation error\n");
+    else
+        text->paragraphs = pars;
+    free(fsnts);
+    return 0;
 
     exit:
     free(fsnts);
+    return 1;
 }
 
 void colorize_text(struct Text text) {
     struct Text coloredtxt = txtcolor(text);
+    if (coloredtxt.length == 0)
+        return;
+
     printtxt(coloredtxt);
     freetxt(coloredtxt);
 }
 
-void print_capitalized_words(struct Text text) {
-    struct Word *wrds;
+int wrdsqsort(const void *a, const void *b) {
+    struct Word x = *(struct Word *) a;
+    struct Word y = *(struct Word *) b;
+    return (int) (wcslen(x.value) - wcslen(y.value));
 }
 
-int cmp(const void *a, const void *b) {
+int wrdsbsearch(const void *a, const void *b) {
+    wchar_t *strwrd = (wchar_t *) a;
+    struct Word wrd = *(struct Word *) b;
+    return (int) (wcslen(strwrd) - wcslen(wrd.value));
+}
+
+void print_capitalized_words(struct Text text) {
+    struct Word *wrds, *fwrds;
+    struct Paragraph *par;
+    struct Sentence **snts;
+    struct Words *srcwrds;
+    wchar_t **strwrds, *tmp = NULL;
+    int sntcnt = 0, buf_size = 40, size_step = 25, fbuf_size = 10, fsize_step = 5;
+    int wrdslen = 0, fwrdslen = 0, wrdlen, wrdsntlen_step = 5;
+
+    if (!(wrds = malloc(buf_size * sizeof(struct Word)))) {
+        wprintf(L"Memory allocation error");
+        return;
+    }
+
+    if (!(fwrds = malloc(fbuf_size * sizeof(struct Word)))) {
+        wprintf(L"Memory allocation error");
+        free(wrds);
+        return;
+    }
+
+    for (int j = 0; j < text.length; j++) {
+        par = text.paragraphs[j];
+        snts = par->sentences;
+
+        for (int i = 0; i < par->length; i++) {
+            srcwrds = sntwrds(*snts[i]);
+            strwrds = srcwrds->value;
+
+            for (int k = 0; k < srcwrds->length; k++) {
+                wchar_t strwrd[wcslen(strwrds[k])];
+                wcscpy(strwrd, strwrds[k]);
+                if (wrdslen > 1) {
+                    struct Word nwrd;
+                    nwrd.value = strwrd;
+                    nwrd.sntlen = wrdsntlen_step;
+                    nwrd.sentences = malloc(nwrd.sntlen * sizeof(int));
+                    continue;
+                }
+
+                tmp = NULL;
+                qsort(wrds, wrdslen, sizeof(struct Word), wrdsqsort);
+                tmp = bsearch(strwrd, wrds, wrdslen, sizeof(struct Word), wrdsbsearch);
+
+                wrdlen = (int) wcslen(strwrds[k]);
+            }
+
+            free(srcwrds);
+            sntcnt++;
+        }
+    }
+}
+
+int lastwrdcmp(const void *a, const void *b) {
     struct Sentence *x = *(struct Sentence **) a;
     struct Sentence *y = *(struct Sentence **) b;
     struct Words *xw = sntwrds(*x), *yw = sntwrds(*y);
@@ -123,7 +192,7 @@ void print_sorted_text(struct Text text) {
         }
     }
 
-    qsort(snts, len, sizeof(struct Sentence *), cmp);
+    qsort(snts, len, sizeof(struct Sentence *), lastwrdcmp);
 
     for (int i = 0; i < len; i++) {
         printsnt(snts[i]);
