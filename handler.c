@@ -6,26 +6,19 @@
 #include "memutilility.h"
 #include "colorutility.h"
 #include "iodata.h"
-
-int sntncscmp(const void *p1, const void *p2) {
-    return snticmp(*(const struct Sentence **) p1, *(const struct Sentence **) p2);
-}
-
-int bsearchcmp(const void *p1, const void *p2) {
-    return snticmp((const struct Sentence *) p1, *(const struct Sentence **) p2);
-}
+#include "dictionary.h"
+#include "utility.h"
 
 int filter_text(struct Text *text) {
     struct Paragraph **pars = text->paragraphs, *par;
-    struct Sentence **snts, **fsnts, **buf, **tmp, *snt;
+    struct Sentence **snts, **buf, *snt;
     int sntcnt, parcnt = text->length;
-    int flen = 0, buf_size = 8, size_step = 5;
+    wchar_t *lstr;
 
-    fsnts = malloc(buf_size * sizeof(struct Sentence *));
-    if (fsnts == NULL) {
-        wprintf(L"Memory allocation error");
+    struct Hashtable *hashtable = create_hashtable(10);
+    if (!hashtable)
         return 1;
-    }
+    struct Item *item = NULL;
 
     for (int j = 0; j < parcnt; j++) {
         par = pars[j];
@@ -36,33 +29,21 @@ int filter_text(struct Text *text) {
         while (i < sntcnt) {
             snt = snts[i];
 
-            if (flen < 1) {
-                fsnts[flen++] = snt;
-                i++;
-                continue;
-            }
-
-            tmp = NULL;
-            qsort(fsnts, flen, sizeof(struct Sentence *), sntncscmp);
-            tmp = bsearch(snt, fsnts, flen, sizeof(struct Sentence *), bsearchcmp);
-
-            if (tmp != NULL) {
+            item = NULL;
+            lstr = wcslower(snt->value);
+            item = find(hashtable, lstr);
+            if (item != NULL) {
                 freesnt(snt);
-
+                free(lstr);
                 if (i != sntcnt-- - 1)
                     memmove(snts + i, snts + i + 1, (sntcnt - i) * sizeof(struct Sentence *));
                 continue;
             }
-            if (flen == buf_size) {
-                if (!(buf = realloc(fsnts, (buf_size += size_step) * sizeof(struct Sentence *)))) {
-                    wprintf(L"Memory reallocation error\n");
-                    par->length = sntcnt;
-                    goto exit;
-                }
-                fsnts = buf;
-            }
 
-            fsnts[flen++] = snt;
+            add(&hashtable, lstr, snt, sizeof(*snt));
+            free(lstr);
+            if (!hashtable)
+                goto exit;
             i++;
         }
 
@@ -86,11 +67,11 @@ int filter_text(struct Text *text) {
         wprintf(L"Memory reallocation error\n");
     else
         text->paragraphs = pars;
-    free(fsnts);
+    free_hashtable(hashtable);
     return 0;
 
     exit:
-    free(fsnts);
+    free_hashtable(hashtable);
     return 1;
 }
 

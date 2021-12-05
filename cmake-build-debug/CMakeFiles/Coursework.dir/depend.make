@@ -19,10 +19,12 @@ CMakeFiles/Coursework.dir/handler.c.o: \
  ../colorutility.h \
  ../datatypes.h \
  ../datautility.h \
+ ../dictionary.h \
  ../handler.c \
  ../handler.h \
  ../iodata.h \
- ../memutilility.h
+ ../memutilility.h \
+ ../utility.h
 CMakeFiles/Coursework.dir/iodata.c.o: \
  ../datatypes.h \
  ../iodata.c \
@@ -38,12 +40,12 @@ CMakeFiles/Coursework.dir/main.c.o: \
  ../handler.h \
  ../iodata.h \
  ../main.c \
- ../memutilility.h
+ ../memutilility.h \
+ ../utility.h
 CMakeFiles/Coursework.dir/memutilility.c.o: \
  ../datatypes.h \
  ../memutilility.c \
  ../memutilility.h
 CMakeFiles/Coursework.dir/utility.c.o: \
- ../datatypes.h \
  ../utility.c \
  ../utility.h
