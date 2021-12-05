@@ -31,40 +31,44 @@ void free_hashtable(struct Hashtable *table) {
     free(table);
 }
 
-//struct Hashtable *resize(struct Hashtable *hashtable) {
-//    int prevsize = hashtable->size;
-//    int size = prevsize * 2;
-//    struct Hashtable *nhashtable = create_hashtable(size);
-//}
-
-struct Item *find(struct Hashtable *hashtable, wchar_t *key) {
-    struct Item *n;
-    for (n = hashtable->items[hash(key, hashtable->size)]; n; n = n->next) {
-        if (n->key == NULL || key == NULL)
-            return NULL;
-        if (wcscmp(key, n->key) == 0)
-            return n;
+struct Hashtable *resize(struct Hashtable *hashtable) {
+    int prevsize = hashtable->size;
+    struct Hashtable *nhashtable = create_hashtable(prevsize * 2);
+    struct Item *item;
+    for (int i = 0; i < prevsize; i++) {
+        item = hashtable->items[i];
+        if (item)
+            add(&nhashtable, item->key, item->value, sizeof(item->value));
     }
-    return NULL;
+    free_hashtable(hashtable);
+    return nhashtable;
 }
 
-struct Item *add(struct Hashtable *hashtable, wchar_t *key, void *value, size_t size) {
+struct Item *find(struct Hashtable *hashtable, wchar_t *key) {
+    return hashtable->items[hash(key, hashtable->size)];
+}
+
+struct Item *add(struct Hashtable **hashtable, wchar_t *key, void *value, size_t size) {
     struct Item *n;
     unsigned hashval;
     void *data = malloc(size);
     if (!data)
         return NULL;
-    if (!(n = find(hashtable, key))) {
+    if (!(n = find(*hashtable, key))) {
         if (!(n = malloc(sizeof(*n))) || !(n->key = wcsdup(key))) {
             free(data);
-            free(n);
             return NULL;
         }
-        hashval = hash(key, hashtable->size);
-        n->next = hashtable->items[hashval];
-        hashtable->items[hashval] = n;
-    } else
+        hashval = hash(key, (*hashtable)->size);
+        (*hashtable)->items[hashval] = n;
+    } else {
+        if (wcscmp(n->key, key) != 0) {
+            *hashtable = resize(*hashtable);
+            free(data);
+            return add(hashtable, key, value, size);
+        }
         free(n->value);
+    }
     memcpy(data, value, size);
     n->value = data;
     return n;

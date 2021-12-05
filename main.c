@@ -8,6 +8,14 @@
 #include "memutilility.h"
 #include "dictionary.h"
 
+void somefunc(int **arr) {
+    int *narr = malloc(10 * sizeof(int));
+    for (int i = 0; i < 10; i++)
+        narr[i] = i + 2;
+    free(*arr);
+    *arr = narr;
+}
+
 int main() {
     setlocale(LC_CTYPE, "");
 
@@ -31,25 +39,26 @@ int main() {
 //
 //    freetxt(text);
 
-    struct Hashtable *hashtable = create_hashtable(101);
+    struct Hashtable *hashtable = create_hashtable(1);
 
     struct Sentence *snt = malloc(sizeof(struct Sentence));
-    snt->value = L"Helen";
+    snt->value = L"snt1";
     struct Sentence *snt2 = malloc(sizeof(struct Sentence));
-    snt2->value = L"Cause";
+    snt2->value = L"snt2";
     struct Sentence *snt3 = malloc(sizeof(struct Sentence));
-    snt3->value = L"Cause";
+    snt3->value = L"snt3";
 
-    add(hashtable, L"Hel", snt, sizeof(*snt));
-    add(hashtable, L"Hel", snt, sizeof(*snt));
-    add(hashtable, L"Hel", snt2, sizeof(*snt));
-    add(hashtable, L"Cau", snt2, sizeof(*snt));
-    add(hashtable, L"Cau", snt3, sizeof(*snt));
+    add(&hashtable, L"Hel", snt, sizeof(*snt));
+    add(&hashtable, L"Cau", snt2, sizeof(*snt));
+    add(&hashtable, L"LOL", snt3, sizeof(*snt));
 
     struct Item *nd = find(hashtable, L"Hel");
     struct Item *nd2 = find(hashtable, L"Cau");
+    struct Item *nd3 = find(hashtable, L"LOL");
     wprintf(L"\n%ls\n", ((struct Sentence *)nd->value)->value);
     wprintf(L"\n%ls\n", ((struct Sentence *)nd2->value)->value);
+    wprintf(L"\n%ls\n", ((struct Sentence *)nd3->value)->value);
+    wprintf(L"%d", hashtable->size);
 
     free_hashtable(hashtable);
     free(snt);

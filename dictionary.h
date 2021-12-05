@@ -9,7 +9,6 @@ struct Hashtable {
 };
 
 struct Item {
-    struct Item *next;
     wchar_t *key;
     void *value;
 };
@@ -20,6 +19,6 @@ void free_hashtable(struct Hashtable *table);
 
 struct Item *find(struct Hashtable *hashtable, wchar_t *key);
 
-struct Item *add(struct Hashtable *hashtable, wchar_t *key, void *value, size_t size);
+struct Item *add(struct Hashtable **hashtable, wchar_t *key, void *value, size_t size);
 
 #endif //COURSEWORK_DICTIONARY_H
