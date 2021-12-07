@@ -19,11 +19,33 @@ int main() {
         return 1;
     }
 
-    print_colorized_text(text);
+    wprintf(L"Введите команду:\n0: Выход из программы\n1: Раскрасить слова в тексте\n2: Распечатать каждое слово, которое начинается и "
+            "заканчивается заглавной буквой\n3: Отсортировать предложения по длине последнего слова\n"
+            "4: Удалить все числа из предложений\n\n");
+    int command;
+    wscanf(L"%d", &command);
+    wprintf(L"\n");
 
-    print_capitalized_words(text);
-
-    print_sorted_text(text);
+    switch (command) {
+        case 0:
+            wprintf(L":(");
+            break;
+        case 1:
+            print_colorized_text(text);
+            break;
+        case 2:
+            print_capitalized_words(text);
+            break;
+        case 3:
+            print_sorted_text(text);
+            break;
+        case 4:
+            print_text_without_numbers(text);
+            break;
+        default:
+            wprintf(L"Unknown command");
+            break;
+    }
 
     free_text(text);
 

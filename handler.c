@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <wchar.h>
+#include <wctype.h>
 #include "handler.h"
 #include "datautility.h"
 #include "memutilility.h"
@@ -87,17 +88,15 @@ void print_capitalized_words(struct Text text) {
 
     for (int j = 0; j < text.length; j++) {
         struct Paragraph *par = text.paragraphs[j];
-        struct Sentence **snts = par->sentences;
-
         for (int i = 0; i < par->length; i++) {
-            struct Words *srcwrds = sntwrds(*snts[i]);
+            struct Words *srcwrds = sntwrds(*par->sentences[i]);
             if (!srcwrds)
                 goto err_free_hashtable;
             wchar_t **strwrds = srcwrds->value;
 
             for (int k = 0; k < srcwrds->length; k++) {
                 wchar_t *rawstr = strwrds[k];
-                bool flag = iswupper(rawstr[0]) && iswupper( rawstr[wcslen(rawstr) - 1]) ? true : false;
+                bool flag = iswupper(rawstr[0]) && iswupper(rawstr[wcslen(rawstr) - 1]) ? true : false;
                 wchar_t *strwrd = wcslower(rawstr);
 
                 struct Item *item = find(hashtable, strwrd);
@@ -208,5 +207,45 @@ void print_sorted_text(struct Text text) {
     for (int i = 0; i < len; i++) {
         print_sentence(snts[i]);
     }
-    wprintf(L"\n");
+    wprintf(L"\n\n");
+}
+
+void print_text_without_numbers(struct Text text) {
+    if (remove_numbers(&text) != 0)
+        return;
+    print_text(text);
+}
+
+int remove_numbers(struct Text *text) {
+    for (int i = 0; i < text->length; i++) {
+        struct Paragraph *par = text->paragraphs[i];
+        for (int j = 0; j < par->length; j++) {
+            struct Sentence *snt = par->sentences[j];
+            wchar_t *str = snt->value;
+            struct Words *wrds = sntwrds(*snt);
+            int strlen = (int) wcslen(str);
+
+            for (int k = 0; k < wrds->length; k++) {
+                wchar_t *wrd = wrds->value[k];
+                if (isnumber(wrd) == false)
+                    continue;
+                int wrdlen = (int) wcslen(wrd);
+                wchar_t *pnum = wcsstr(str, wrd);
+                int shift = iswpunct((pnum + wrdlen)[0]) ? 0 : 1;
+                memmove(pnum - 1 + shift, pnum + wrdlen + shift, (wcslen(pnum) - wrdlen - shift) * sizeof(wchar_t));
+                strlen -= wrdlen + 1;
+            }
+
+            wchar_t *buf;
+            if (!(buf = realloc(str, strlen * sizeof(wchar_t)))) {
+                wprintf(L"Memory reallocation error");
+                free_words(wrds);
+                return 1;
+            }
+            snt->value = buf;
+            free_words(wrds);
+        }
+    }
+
+    return 0;
 }

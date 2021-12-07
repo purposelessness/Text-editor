@@ -1,9 +1,21 @@
 #include <wchar.h>
 #include <malloc.h>
+#include <wctype.h>
 #include "utility.h"
 
 int max(int a, int b) {
     return a > b ? a : b;
+}
+
+bool isnumber(wchar_t *s) {
+    bool flag = true;
+    for (; *s; s++) {
+        if (iswdigit(*s) == 0) {
+            flag = false;
+            break;
+        }
+    }
+    return flag;
 }
 
 wchar_t *wcslower(wchar_t *s) {
