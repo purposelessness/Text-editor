@@ -5,7 +5,7 @@
 #include <ctype.h>
 #include <wchar.h>
 
-struct Text scantxt() {
+struct Text scan_text() {
     struct Text text;
     int len = 0, buf_size = 3, size_step = 2;
     struct Paragraph **pars, **buf, *par;
@@ -16,7 +16,7 @@ struct Text scantxt() {
         goto err;
     }
 
-    while ((par = scanpar())) {
+    while ((par = scan_paragraph())) {
         if (len == buf_size) {
             if (!(buf = realloc(pars, (buf_size += size_step) * sizeof(struct Paragraph *)))) {
                 wprintf(L"Memory reallocation error\n");
@@ -44,14 +44,14 @@ struct Text scantxt() {
 
     err_free_pars:
     for (int i = 0; i < len; i++)
-        freepar(pars[i]);
+        free_paragraph(pars[i]);
     free(pars);
     err:
     text.length = 0;
     return text;
 }
 
-struct Paragraph *scanpar() {
+struct Paragraph *scan_paragraph() {
     int len = 0, buf_size = 8, size_step = 5;
     struct Sentence **snts, **buf, *snt;
 
@@ -61,7 +61,7 @@ struct Paragraph *scanpar() {
         goto err;
     }
 
-    while ((snt = scansnt())) {
+    while ((snt = scan_sentence())) {
         if (len == buf_size) {
             if (!(buf = realloc(snts, (buf_size += size_step) * sizeof(struct Sentence *)))) {
                 wprintf(L"Memory reallocation error\n");
@@ -98,13 +98,13 @@ struct Paragraph *scanpar() {
     free(paragraph);
     err_free_snts:
     for (int i = 0; i < len; i++)
-        freesnt(snts[i]);
+        free_sentence(snts[i]);
     free(snts);
     err:
     return NULL;
 }
 
-struct Sentence *scansnt() {
+struct Sentence *scan_sentence() {
     struct Sentence *snt;
     wchar_t c, *str, *buf;
     wchar_t *endchars = L".", *seps = L" ,.";
@@ -158,7 +158,6 @@ struct Sentence *scansnt() {
 
     snt->value = str;
     snt->length = len;
-
     return snt;
 
     err_free_str:
@@ -168,19 +167,19 @@ struct Sentence *scansnt() {
     return NULL;
 }
 
-void printtxt(struct Text text) {
+void print_text(struct Text text) {
     for (int i = 0; i < text.length; i++)
-        printpar(text.paragraphs[i]);
+        print_paragraph(text.paragraphs[i]);
     wprintf(L"\n");
 }
 
-void printpar(struct Paragraph *paragraph) {
+void print_paragraph(struct Paragraph *paragraph) {
     for (int i = 0; i < paragraph->length; i++)
-        printsnt(paragraph->sentences[i]);
+        print_sentence(paragraph->sentences[i]);
     wprintf(L"\n");
 }
 
-void printsnt(struct Sentence *sentence) {
+void print_sentence(struct Sentence *sentence) {
     wprintf(L"%ls ", sentence->value);
 }
 

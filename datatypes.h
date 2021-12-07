@@ -29,8 +29,10 @@ struct Words {
 
 struct Word {
     wchar_t *value;
+    bool flag;
     int *sentences;
-    int sntlen;
+    int size;
+    int length;
 };
 
 #endif //COURSEWORK_DATATYPES_H

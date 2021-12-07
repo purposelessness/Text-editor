@@ -3,14 +3,12 @@
 
 #include "datatypes.h"
 
-void freetxt(struct Text text);
+void free_text(struct Text text);
 
-void freepar(struct Paragraph *paragraph);
+void free_paragraph(struct Paragraph *paragraph);
 
-void freesnt(struct Sentence *sentence);
+void free_sentence(struct Sentence *sentence);
 
-void freewrds(struct Words *words);
-
-void freewrd(struct Word *word);
+void free_words(struct Words *words);
 
 #endif //COURSEWORK_MEMUTILILITY_H

@@ -3,16 +3,16 @@
 
 #include "datatypes.h"
 
-struct Text scantxt();
+struct Text scan_text();
 
-struct Paragraph *scanpar();
+struct Paragraph *scan_paragraph();
 
-struct Sentence *scansnt();
+struct Sentence *scan_sentence();
 
-void printtxt(struct Text text);
+void print_text(struct Text text);
 
-void printpar(struct Paragraph *paragraph);
+void print_paragraph(struct Paragraph *paragraph);
 
-void printsnt(struct Sentence *sentence);
+void print_sentence(struct Sentence *sentence);
 
 #endif //COURSEWORK_IODATA_H

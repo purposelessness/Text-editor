@@ -4,10 +4,10 @@
 #include <stddef.h>
 #include "datatypes.h"
 
-struct Text txtcolor(struct Text text);
+struct Text colorize_text(struct Text text);
 
-struct Paragraph *parcolor(struct Paragraph paragraph);
+struct Paragraph *colorize_paragraph(struct Paragraph paragraph);
 
-struct Sentence *sntcolor(struct Sentence sentence);
+struct Sentence *colorize_sentence(struct Sentence sentence);
 
 #endif //COURSEWORK_COLORUTILITY_H

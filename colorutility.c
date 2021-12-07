@@ -12,7 +12,7 @@
 
 wchar_t *wrdclr(int wrdlen);
 
-struct Text txtcolor(struct Text text) {
+struct Text colorize_text(struct Text text) {
     struct Text txt;
     struct Paragraph **srcpars = text.paragraphs, **pars;
     int len = text.length;
@@ -25,7 +25,7 @@ struct Text txtcolor(struct Text text) {
     }
 
     for (int i = 0; i < len; i++) {
-        pars[i] = parcolor(*srcpars[i]);
+        pars[i] = colorize_paragraph(*srcpars[i]);
 
         if (pars[i] == NULL) {
             for (int j = 0; j < i; j++)
@@ -41,7 +41,7 @@ struct Text txtcolor(struct Text text) {
     return txt;
 }
 
-struct Paragraph *parcolor(const struct Paragraph paragraph) {
+struct Paragraph *colorize_paragraph(struct Paragraph paragraph) {
     struct Paragraph *par;
     struct Sentence **snts, **srcsnts = paragraph.sentences;
     int len = paragraph.length;
@@ -60,7 +60,7 @@ struct Paragraph *parcolor(const struct Paragraph paragraph) {
     }
 
     for (int i = 0; i < len; i++) {
-        snts[i] = sntcolor(*srcsnts[i]);
+        snts[i] = colorize_sentence(*srcsnts[i]);
 
         if (snts[i] == NULL) {
             for (int j = 0; j < i; j++)
@@ -75,7 +75,7 @@ struct Paragraph *parcolor(const struct Paragraph paragraph) {
     return par;
 }
 
-struct Sentence *sntcolor(const struct Sentence sentence) {
+struct Sentence *colorize_sentence(struct Sentence sentence) {
     struct Sentence *snt;
     struct Words *wrds = sntwrds(sentence);
     int strlen = sentence.length, wrdlen;
@@ -107,7 +107,7 @@ struct Sentence *sntcolor(const struct Sentence sentence) {
         wcsncpy(pwrd - 4, DEFAULT, 4);
         strlen -= wrdlen;
     }
-    freewrds(wrds);
+    free_words(wrds);
 
     snt->value = str;
     snt->length = (int) wcslen(str);

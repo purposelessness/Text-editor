@@ -1,31 +1,26 @@
 #include <malloc.h>
 #include "memutilility.h"
 
-void freetxt(struct Text text) {
+void free_text(struct Text text) {
     for (int i = 0; i < text.length; i++)
-        freepar(text.paragraphs[i]);
+        free_paragraph(text.paragraphs[i]);
     free(text.paragraphs);
 }
 
-void freepar(struct Paragraph *paragraph) {
+void free_paragraph(struct Paragraph *paragraph) {
     for (int i = 0; i < paragraph->length; i++)
-        freesnt(paragraph->sentences[i]);
+        free_sentence(paragraph->sentences[i]);
     free(paragraph->sentences);
     free(paragraph);
 }
 
-void freesnt(struct Sentence *sentence) {
+void free_sentence(struct Sentence *sentence) {
     free(sentence->value);
     free(sentence);
 }
 
-void freewrds(struct Words *words) {
+void free_words(struct Words *words) {
     free(words->value[0]);
     free(words->value);
     free(words);
-}
-
-void freewrd(struct Word *word) {
-    free(word->sentences);
-    free(word);
 }

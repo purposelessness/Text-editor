@@ -27,9 +27,8 @@ struct Hashtable *create_hashtable(int size) {
 }
 
 void free_hashtable(struct Hashtable *table) {
-    struct Item *item;
     for (int i = 0; i < table->size; i++) {
-        item = table->items[i];
+        struct Item *item = table->items[i];
         if (item == NULL)
             continue;
         free(item->key);
@@ -51,7 +50,7 @@ struct Hashtable *resize(struct Hashtable *hashtable) {
     for (int i = 0; i < prevsize; i++) {
         item = hashtable->items[i];
         if (item)
-            add(&nhashtable, item->key, item->value, sizeof(item->value));
+            add(&nhashtable, item->key, item->value, item->size);
     }
     free_hashtable(hashtable);
     return nhashtable;
@@ -59,7 +58,7 @@ struct Hashtable *resize(struct Hashtable *hashtable) {
 
 struct Item *find(struct Hashtable *hashtable, wchar_t *key) {
     struct Item *item = hashtable->items[hash(key, hashtable->size)];
-    return item && (wcscmp(key, item->key) == 0) ? item : NULL;
+    return item && (wcscmp(key, item->key) == 0) ? item->value : NULL;
 }
 
 struct Item *softfind(struct Hashtable *hashtable, wchar_t *key) {
@@ -67,24 +66,24 @@ struct Item *softfind(struct Hashtable *hashtable, wchar_t *key) {
 }
 
 struct Item *add(struct Hashtable **hashtable, wchar_t *key, void *value, size_t size) {
-    struct Item *n;
+    struct Item *item;
     unsigned hashval;
     void *data = malloc(size);
     if (!data) {
         wprintf(L"Memory allocation error\n");
         return NULL;
     }
-    if (!(n = softfind(*hashtable, key))) {
-        if (!(n = malloc(sizeof(*n))) || !(n->key = wcsdup(key))) {
+    if (!(item = softfind(*hashtable, key))) {
+        if (!(item = malloc(sizeof(*item))) || !(item->key = wcsdup(key))) {
             wprintf(L"Memory allocation error");
             free(data);
             return NULL;
         }
         hashval = hash(key, (*hashtable)->size);
-        (*hashtable)->items[hashval] = n;
+        (*hashtable)->items[hashval] = item;
     } else {
         free(data);
-        if (wcscmp(n->key, key) != 0) {
+        if (wcscmp(item->key, key) != 0) {
             *hashtable = resize(*hashtable);
             if (!hashtable)
                 return NULL;
@@ -94,6 +93,7 @@ struct Item *add(struct Hashtable **hashtable, wchar_t *key, void *value, size_t
         return NULL;
     }
     memcpy(data, value, size);
-    n->value = data;
-    return n;
+    item->value = data;
+    item->size = size;
+    return item;
 }

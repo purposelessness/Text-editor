@@ -11,6 +11,7 @@ struct Hashtable {
 struct Item {
     wchar_t *key;
     void *value;
+    size_t size;
 };
 
 struct Hashtable *create_hashtable(int size);
