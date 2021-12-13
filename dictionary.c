@@ -85,8 +85,10 @@ struct Item *add(struct Hashtable **hashtable, wchar_t *key, void *value, size_t
         free(data);
         if (wcscmp(item->key, key) != 0) {
             *hashtable = resize(*hashtable);
-            if (!hashtable)
+            if (!hashtable) {
+                wprintf(L"Cannot add element!\n");
                 return NULL;
+            }
             return add(hashtable, key, value, size);
         }
         wprintf(L"Element with same key already exists!\n");

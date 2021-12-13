@@ -3,10 +3,6 @@
 #include <wctype.h>
 #include "utility.h"
 
-int max(int a, int b) {
-    return a > b ? a : b;
-}
-
 bool isnumber(wchar_t *s) {
     bool flag = true;
     for (; *s; s++) {

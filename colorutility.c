@@ -12,22 +12,22 @@
 
 wchar_t *wrdclr(int wrdlen);
 
-struct Text colorize_text(struct Text text) {
+struct Text txtcolor(const struct Text *text) {
     struct Text txt;
-    struct Paragraph **srcpars = text.paragraphs, **pars;
-    int len = text.length;
+    struct Paragraph **srcpars = text->paragraphs, **pars;
+    int len = text->length;
 
     pars = malloc(len * sizeof(struct Paragraph *));
-    if (pars == NULL) {
+    if (!pars) {
         wprintf(L"Memory allocation error");
         txt.length = 0;
         return txt;
     }
 
     for (int i = 0; i < len; i++) {
-        pars[i] = colorize_paragraph(*srcpars[i]);
+        pars[i] = parcolor(srcpars[i]);
 
-        if (pars[i] == NULL) {
+        if (!pars[i]) {
             for (int j = 0; j < i; j++)
                 free(pars[j]);
             free(pars);
@@ -41,28 +41,28 @@ struct Text colorize_text(struct Text text) {
     return txt;
 }
 
-struct Paragraph *colorize_paragraph(struct Paragraph paragraph) {
+struct Paragraph *parcolor(const struct Paragraph *paragraph) {
     struct Paragraph *par;
-    struct Sentence **snts, **srcsnts = paragraph.sentences;
-    int len = paragraph.length;
+    struct Sentence **snts, **srcsnts = paragraph->sentences;
+    int len = paragraph->length;
 
     par = malloc(sizeof(struct Paragraph));
-    if (par == NULL) {
+    if (!par) {
         wprintf(L"Memory allocation error");
         return NULL;
     }
 
     snts = malloc(len * sizeof(struct Sentence *));
-    if (snts == NULL) {
+    if (!snts) {
         wprintf(L"Memory allocation error");
         free(par);
         return NULL;
     }
 
     for (int i = 0; i < len; i++) {
-        snts[i] = colorize_sentence(*srcsnts[i]);
+        snts[i] = sntcolor(srcsnts[i]);
 
-        if (snts[i] == NULL) {
+        if (!snts[i]) {
             for (int j = 0; j < i; j++)
                 free(snts[j]);
             free(snts);
@@ -75,25 +75,27 @@ struct Paragraph *colorize_paragraph(struct Paragraph paragraph) {
     return par;
 }
 
-struct Sentence *colorize_sentence(struct Sentence sentence) {
+struct Sentence *sntcolor(const struct Sentence *sentence) {
     struct Sentence *snt;
     struct Words *wrds = sntwrds(sentence);
-    int strlen = sentence.length, wrdlen;
+    if (!wrds)
+        return NULL;
+    int strlen = sentence->length, wrdlen;
     wchar_t *pwrd = NULL, *wrd, *color, *str;
 
     snt = malloc(sizeof(struct Sentence));
-    if (snt == NULL) {
+    if (!snt) {
         wprintf(L"Memory allocation error");
         return NULL;
     }
 
     str = malloc((strlen + 9 * wrds->length) * sizeof(wchar_t));
-    if (str == NULL) {
+    if (!str) {
         wprintf(L"Memory allocation error");
         free(snt);
         return NULL;
     }
-    wcsncpy(str, sentence.value, strlen);
+    wcsncpy(str, sentence->value, strlen);
 
     for (int i = 0; i < wrds->length; i++) {
         wrd = wrds->value[i];

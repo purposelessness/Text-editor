@@ -52,7 +52,7 @@ struct Text scan_text() {
 }
 
 struct Paragraph *scan_paragraph() {
-    int len = 0, buf_size = 8, size_step = 5;
+    int len = 0, buf_size = 8, sizestep = 5;
     struct Sentence **snts, **buf, *snt;
 
     snts = malloc(buf_size * sizeof(struct Sentence *));
@@ -63,7 +63,7 @@ struct Paragraph *scan_paragraph() {
 
     while ((snt = scan_sentence())) {
         if (len == buf_size) {
-            if (!(buf = realloc(snts, (buf_size += size_step) * sizeof(struct Sentence *)))) {
+            if (!(buf = realloc(snts, (buf_size += sizestep) * sizeof(struct Sentence *)))) {
                 wprintf(L"Memory reallocation error\n");
                 goto err_free_snts;
             }
@@ -108,8 +108,8 @@ struct Sentence *scan_sentence() {
     struct Sentence *snt;
     wchar_t c, *str, *buf;
     wchar_t *endchars = L".", *seps = L" ,.";
-    int len = 0, buf_size = 60, size_step = 30;
-    bool state = false, nline = false;
+    int len = 0, bufsize = 60, sizestep = 30;
+    bool state = false;
 
     snt = malloc(sizeof(struct Sentence));
     if (snt == NULL) {
@@ -117,7 +117,7 @@ struct Sentence *scan_sentence() {
         return NULL;
     }
 
-    str = malloc(buf_size * sizeof(wchar_t));
+    str = malloc(bufsize * sizeof(wchar_t));
     if (str == NULL) {
         wprintf(L"Memory allocation error\n");
         goto err_free_snt;
@@ -127,13 +127,13 @@ struct Sentence *scan_sentence() {
         if (state == false) {
             if (c == '\n')
                 goto err_free_str;
-            if (isspace(c) || (ispunct(c) && wcschr(seps, c)))
+            if (isspace(c) || wcschr(seps, c))
                 continue;
             state = true;
         }
 
-        if (len == buf_size - 1) {
-            if (!(buf = realloc(str, (buf_size += size_step) * sizeof(wchar_t)))) {
+        if (len == bufsize - 1) {
+            if (!(buf = realloc(str, (bufsize += sizestep) * sizeof(wchar_t)))) {
                 wprintf(L"Memory reallocation error\n");
                 goto err_free_str;
             }
@@ -144,10 +144,10 @@ struct Sentence *scan_sentence() {
         if (wcschr(endchars, c))
             break;
     }
-    if (state == false)
+    if (len == 0 || state == false)
         goto err_free_str;
 
-    if (buf_size != len + 1) {
+    if (bufsize != len + 1) {
         if (!(buf = realloc(str, (len + 1) * sizeof(wchar_t)))) {
             wprintf(L"Memory reallocation error\n");
             goto err_free_str;

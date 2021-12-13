@@ -3,6 +3,8 @@
 
 #include "datatypes.h"
 
-struct Words *sntwrds(struct Sentence sentence);
+struct Words *sntwrds(const struct Sentence *snt);
+
+int txtclear(struct Text *txt);
 
 #endif //COURSEWORK_DATAUTILITY_H
