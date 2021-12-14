@@ -77,7 +77,7 @@ struct Sentence *sntrmnums(const struct Sentence *sentence) {
         wchar_t *wrd = wrds->value[k];
         int wrdlen = (int) wcslen(wrd);
         if (isnumber(wrd) == false) {
-            ptr = str + wrdlen;
+            ptr = ptr + wrdlen + 1;
             start = false;
             continue;
         }
@@ -87,7 +87,7 @@ struct Sentence *sntrmnums(const struct Sentence *sentence) {
             if (k + 1 == wrds->length)
                 goto err_free_str;
 
-            ptr = wmemmove(pnum, pnum + wrdlen - shift + 2, strlen - wrdlen - 2 + shift);
+            wmemmove(pnum, pnum + wrdlen - shift + 2, strlen - wrdlen - 2 + shift);
             strlen -= wrdlen + 2 - shift;
             continue;
         }
