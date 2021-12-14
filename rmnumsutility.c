@@ -3,7 +3,7 @@
 #include <wctype.h>
 #include <malloc.h>
 #include "datautility.h"
-#include "memutilility.h"
+#include "memutility.h"
 #include "utility.h"
 
 struct Text txtrmnums(const struct Text *text) {

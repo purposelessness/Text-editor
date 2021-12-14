@@ -3,7 +3,7 @@
 #include <wctype.h>
 #include "handler.h"
 #include "datautility.h"
-#include "memutilility.h"
+#include "memutility.h"
 #include "colorutility.h"
 #include "iodata.h"
 #include "dictionary.h"

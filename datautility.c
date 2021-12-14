@@ -2,7 +2,7 @@
 #include <malloc.h>
 #include <string.h>
 #include "datautility.h"
-#include "memutilility.h"
+#include "memutility.h"
 
 struct Words *sntwrds(const struct Sentence *snt) {
     struct Words *words;

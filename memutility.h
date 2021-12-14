@@ -1,5 +1,5 @@
-#ifndef COURSEWORK_MEMUTILILITY_H
-#define COURSEWORK_MEMUTILILITY_H
+#ifndef COURSEWORK_MEMUTILITY_H
+#define COURSEWORK_MEMUTILITY_H
 
 #include "datatypes.h"
 
@@ -11,4 +11,4 @@ void free_sentence(struct Sentence *sentence);
 
 void free_words(struct Words *words);
 
-#endif //COURSEWORK_MEMUTILILITY_H
+#endif //COURSEWORK_MEMUTILITY_H

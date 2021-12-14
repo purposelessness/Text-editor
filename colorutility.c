@@ -2,7 +2,7 @@
 #include <malloc.h>
 #include "datautility.h"
 #include "colorutility.h"
-#include "memutilility.h"
+#include "memutility.h"
 
 #define DEFAULT L"\033[0m"
 #define RED L"\033[31m"
@@ -103,16 +103,16 @@ struct Sentence *sntcolor(const struct Sentence *sentence) {
         color = wrdclr(wrdlen);
         pwrd = !pwrd ? wcsstr(str, wrd) : wcsstr(pwrd, wrd);
 
-        pwrd = wmemmove(pwrd + 5, pwrd, strlen);
+        pwrd = wmemmove(pwrd + 5, pwrd, wcslen(pwrd) + 1);
         wcsncpy(pwrd - 5, color, 5);
-        pwrd = wmemmove(pwrd + wrdlen + 4, pwrd + wrdlen, strlen);
+        pwrd = wmemmove(pwrd + wrdlen + 4, pwrd + wrdlen, wcslen(pwrd + wrdlen) + 1);
         wcsncpy(pwrd - 4, DEFAULT, 4);
         strlen -= wrdlen;
     }
     free_words(wrds);
 
     snt->value = str;
-    snt->length = (int) wcslen(str);
+    snt->length = (int) wcslen(str) + 1;
 
     return snt;
 }

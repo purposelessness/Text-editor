@@ -1,6 +1,6 @@
 #include "iodata.h"
 #include "ioutility.h"
-#include "memutilility.h"
+#include "memutility.h"
 #include <malloc.h>
 #include <ctype.h>
 #include <wchar.h>

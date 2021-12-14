@@ -1,5 +1,5 @@
 #include <malloc.h>
-#include "memutilility.h"
+#include "memutility.h"
 
 void free_text(struct Text text) {
     for (int i = 0; i < text.length; i++) {

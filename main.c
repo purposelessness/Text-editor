@@ -3,7 +3,7 @@
 #include "datatypes.h"
 #include "iodata.h"
 #include "handler.h"
-#include "memutilility.h"
+#include "memutility.h"
 
 int main() {
     setlocale(LC_CTYPE, "");
