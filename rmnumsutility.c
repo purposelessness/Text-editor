@@ -71,22 +71,27 @@ struct Sentence *sntrmnums(const struct Sentence *sentence) {
     }
     wcsncpy(str, sentence->value, strlen);
 
+    wchar_t *ptr = str;
+    bool start = true;
     for (int k = 0; k < wrds->length; k++) {
         wchar_t *wrd = wrds->value[k];
-        if (isnumber(wrd) == false)
-            continue;
         int wrdlen = (int) wcslen(wrd);
-        wchar_t *pnum = wcsstr(str, wrd);
+        if (isnumber(wrd) == false) {
+            ptr = str + wrdlen;
+            start = false;
+            continue;
+        }
+        wchar_t *pnum = wcsstr(ptr, wrd);
         int shift = iswpunct(*(pnum + wrdlen)) ? 0 : 1;
-        if (pnum == str) {
+        if (start == true) {
             if (k + 1 == wrds->length)
                 goto err_free_str;
 
-            wmemmove(pnum, pnum + wrdlen - shift + 2, strlen - wrdlen - 2 + shift);
+            ptr = wmemmove(pnum, pnum + wrdlen - shift + 2, strlen - wrdlen - 2 + shift);
             strlen -= wrdlen + 2 - shift;
             continue;
         }
-        wmemmove(pnum - 1 + shift, pnum + wrdlen + shift, wcslen(pnum) + 1 - wrdlen - shift);
+        ptr = wmemmove(pnum - 1 + shift, pnum + wrdlen + shift, wcslen(pnum) + 1 - wrdlen - shift);
         strlen -= wrdlen + 1;
     }
 
