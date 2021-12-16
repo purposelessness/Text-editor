@@ -13,4 +13,6 @@ void print_sorted_text(const struct Text *text);
 
 void print_text_without_numbers(struct Text *text);
 
+void sort_text_task(struct Text *text);
+
 #endif //COURSEWORK_HANDLER_H

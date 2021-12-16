@@ -4,6 +4,7 @@
 #include "iodata.h"
 #include "handler.h"
 #include "memutility.h"
+#include "utility.h"
 
 int main() {
     setlocale(LC_CTYPE, "");
@@ -25,7 +26,8 @@ int main() {
             "2: Распечатать каждое слово, которое начинается и заканчивается заглавной буквой, и номера предложений, "
             "в которых оно встречается\n"
             "3: Отсортировать предложения по длине последнего слова\n"
-            "4: Удалить все числа из предложений\n\n");
+            "4: Удалить все числа из предложений\n"
+            "5: Отсортировать по количеству слов, состоящих из одинаковых символов\n\n");
     int command;
     wscanf(L"%d", &command);
     wprintf(L"\n");
@@ -44,6 +46,10 @@ int main() {
             break;
         case 4:
             print_text_without_numbers(&text);
+            break;
+        case 5:
+            sort_text_task(&text);
+            print_text(text);
             break;
         default:
             wprintf(L"Unknown command");

@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <wchar.h>
 #include <wctype.h>
+#include <string.h>
 #include "handler.h"
 #include "datautility.h"
 #include "memutility.h"
@@ -194,4 +195,72 @@ void print_text_without_numbers(struct Text *text) {
         return;
     print_text(txt);
     free_text(txt);
+}
+
+int wrdcmptask(const void *a, const void *b) {
+    wchar_t x = *(wchar_t *) a;
+    wchar_t y = *(wchar_t *) b;
+    return x - y;
+}
+
+int sntcmptask(const void *a, const void *b) {
+    struct Sentence *x = *(struct Sentence **) a;
+    struct Sentence *y = *(struct Sentence **) b;
+    struct Words *wx = sntwrds(x);
+    struct Words *wy = sntwrds(y);
+    int c1 = 0, c2 = 0;
+    struct Hashtable *hashtable1 = create_hashtable(20);
+    struct Hashtable *hashtable2 = create_hashtable(20);
+    for (int i = 0; i < wx->length; i++) {
+        wchar_t *nodupl = remove_duplicates(wx->value[i]);
+        qsort(nodupl, wcslen(nodupl), sizeof(wchar_t), wrdcmptask);
+        struct Item *item = find(hashtable1, nodupl);
+        if (item) {
+            c1++;
+            free(nodupl);
+            continue;
+        }
+        add(&hashtable1, nodupl, nodupl, sizeof(wchar_t *));
+        free(nodupl);
+    }
+    for (int i = 0; i < wy->length; i++) {
+        wchar_t *nodupl = remove_duplicates(wy->value[i]);
+        qsort(nodupl, wcslen(nodupl), sizeof(wchar_t), wrdcmptask);
+        struct Item *item = find(hashtable2, nodupl);
+        if (item) {
+            c2++;
+            free(nodupl);
+            continue;
+        }
+        add(&hashtable2, nodupl, nodupl, sizeof(wchar_t *));
+        free(nodupl);
+    }
+    free_words(wx);
+    free_words(wy);
+    free_hashtable(hashtable1);
+    free_hashtable(hashtable2);
+    return c1 - c2;
+}
+
+void sort_text_task(struct Text *text) {
+    int len = 0;
+    int c = 0;
+    for (int i = 0; i < text->length; i++)
+        len += text->paragraphs[i]->length;
+
+    int lastlen = text->paragraphs[0]->length, curlen = lastlen;
+    text->paragraphs[0]->sentences = realloc(text->paragraphs[0]->sentences, len * sizeof(struct Sentence *));
+
+    for (int i = 1; i < text->length; i++) {
+        struct Paragraph *temppar = text->paragraphs[i];
+        for (int j = 0; j < temppar->length; j++) {
+            text->paragraphs[0]->sentences[curlen++] = temppar->sentences[j];
+        }
+        free(temppar->sentences);
+        free(temppar);
+    }
+    qsort(text->paragraphs[0]->sentences, len, sizeof(struct Sentence *), sntcmptask);
+    text->paragraphs = realloc(text->paragraphs, sizeof(struct Paragraph *));
+    text->paragraphs[0]->length = len;
+    text->length = 1;
 }

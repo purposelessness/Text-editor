@@ -14,6 +14,18 @@ bool isnumber(wchar_t *s) {
     return flag;
 }
 
+wchar_t *remove_duplicates(wchar_t *s) {
+    wchar_t *noduplicates = malloc((wcslen(s) + 1) * sizeof(wchar_t));
+    int i = 0;
+    for (; *s; s++) {
+        if (!wcschr(noduplicates, towlower(*s))) {
+            noduplicates[i++] = towlower(*s);
+        }
+    }
+    noduplicates[i] = '\0';
+    return noduplicates;
+}
+
 wchar_t *wcslower(wchar_t *s) {
     int size = (int) wcslen(s);
     wchar_t *ls = malloc((size + 1) * sizeof(wchar_t));
