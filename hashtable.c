@@ -1,7 +1,7 @@
 #include <wchar.h>
 #include <malloc.h>
 #include <string.h>
-#include "dictionary.h"
+#include "hashtable.h"
 
 unsigned hash(wchar_t *key, int size) {
     unsigned hashval;

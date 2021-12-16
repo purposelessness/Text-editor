@@ -8,6 +8,8 @@
 int main() {
     setlocale(LC_CTYPE, "");
 
+    wprintf(L"Введите текст.\n\n");
+
     struct Text text = scan_text();
     if (text.length == 0)
         return 0;

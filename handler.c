@@ -6,7 +6,7 @@
 #include "memutility.h"
 #include "colorutility.h"
 #include "iodata.h"
-#include "dictionary.h"
+#include "hashtable.h"
 #include "utility.h"
 #include "rmnumsutility.h"
 

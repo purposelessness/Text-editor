@@ -1,5 +1,5 @@
-#ifndef COURSEWORK_DICTIONARY_H
-#define COURSEWORK_DICTIONARY_H
+#ifndef COURSEWORK_HASHTABLE_H
+#define COURSEWORK_HASHTABLE_H
 
 #include <stddef.h>
 
@@ -22,4 +22,4 @@ struct Item *find(struct Hashtable *hashtable, wchar_t *key);
 
 struct Item *add(struct Hashtable **hashtable, wchar_t *key, void *value, size_t size);
 
-#endif //COURSEWORK_DICTIONARY_H
+#endif //COURSEWORK_HASHTABLE_H
